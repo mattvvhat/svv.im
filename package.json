@@ -1,0 +1,21 @@
+{
+  "name": "SWIM",
+  "author": "Matthew Owen",
+  "version": "0.0.1-2",
+  "description": "SWIM IS DEEP-END, INFINITE ANTHROFUTURE DANCE NIGHT",
+  "main": "./app.js",
+  "dependencies": {
+    "express": "3.0.x",
+    "socket.io": "0.9.x",
+    "ejs": "0.8.x",
+    "ogp": "0.0.x"
+  },
+  "engines": {
+    "node": "0.8.x",
+    "npm": "1.1.x"
+  },
+  "scripts": {
+    "start": "app.js"
+  },
+  "subdomain": "svvim"
+}
