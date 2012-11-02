@@ -52,6 +52,7 @@
         letter-spacing: .25em;
       }
       #all {
+        margin: 10px;
       }
       .col {
         float: left;
@@ -94,23 +95,32 @@
         position: absolute;
       }
       #bywho {
+        font-size: 20px;
         position: fixed;
         bottom: .25em;
         right: .5em;
-        -webkit-transform: rotate(180deg); 
-        -moz-transform: rotate(180deg);
-        -o-transform: rotate(180deg);
-        transform: rotate(180deg);
+        z-index: 667;
       }
       #bywho a {
         color: transparent;
-        text-shadow: rgb(66,66,66) -2px 0 3px, rgb(66,66,66) 2px 0 3px;
+        text-shadow: rgb(66,66,66) -2px 0 2px, rgb(66,66,66) 2px 0 2px;
         text-decoration: none;
       }
-
       #bywho a:hover {
-        text-shadow: black 0 0 3px;
+        text-shadow: black 0 0 2px;
         text-decoration: none;
+      }
+      .sink {
+        border-style: solid;
+        border-width: 0 0 4px 0;
+        border-color: black;
+        display: inline-block;
+        overflow: hidden;
+      }
+      .sink div {
+        position: relative;
+        top: .6em;
+        left: -.2em;
       }
     </style>
   </head>
@@ -131,12 +141,12 @@
       45<span class="unit">s</span>
     </div> 
     -->
-    <header>
-      <h1>SWIM</h1>
-      <div>DEEP-END, INFINITE ANTHROFUTURE DANCE NIGHT</div>
-    </header>
 
     <div id="all">
+      <header>
+        <div class="sink"><div><h1>SWIM</h1></div></div>
+          <div>DEEP-END, INFINITE ANTHROFUTURE DANCE NIGHT</div>
+        </header>
       <div class="col">
         <div>Middlesex Lounge</div>
         <div><small>http://middlesexlounge.us/</small></div>
@@ -157,6 +167,10 @@
       <span>dead</span>
       <span>yet</span><br>
       <span>??????????</span>
+    </div>
+
+    <div id="isuck">
+      <div>I AM SO SICK AT GRAPHIC DESIGN</div>
     </div>
 
     <div id="bywho"><a href="https://planwork.us/">PLANWORK</a></div>
