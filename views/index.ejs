@@ -37,9 +37,13 @@
         -moz-background-size: cover;
         -o-background-size: cover;
         background-size: cover;
+        margin: 0;
+      }
+      header {
+        margin: 0 0 1em 0;
       }
       h1, h2, h3 {
-        margin: 0 0 1em 0;
+        margin: 0;
       }
       #until {
         font-size: 40pt;
@@ -51,7 +55,6 @@
       }
       .col {
         float: left;
-        min-width: 500px;
         margin: 0 1em 1em 0;
       }
       .unit {
@@ -65,6 +68,50 @@
         top: -1000px;
         right: -1000px;
       }
+      #staggered {
+        font-size: 90pt;
+      }
+      #staggered :nth-child(2) {
+        position: relative;
+        top: 40px;
+      }
+      #staggered :nth-child(3),
+      #staggered :nth-child(4) {
+        position: relative;
+        left: 20px;
+        top: 20px;
+      }
+      #staggered :nth-child(8) {
+        position: relative;
+        top: 80px;
+      }
+      #fucking {
+        background-color: black;
+        width: 300px;
+        color: white;
+        float: left;
+        height: 100%;
+        position: absolute;
+      }
+      #bywho {
+        position: fixed;
+        bottom: .25em;
+        right: .5em;
+        -webkit-transform: rotate(180deg); 
+        -moz-transform: rotate(180deg);
+        -o-transform: rotate(180deg);
+        transform: rotate(180deg);
+      }
+      #bywho a {
+        color: transparent;
+        text-shadow: rgb(66,66,66) -2px 0 3px, rgb(66,66,66) 2px 0 3px;
+        text-decoration: none;
+      }
+
+      #bywho a:hover {
+        text-shadow: black 0 0 3px;
+        text-decoration: none;
+      }
     </style>
   </head>
   <body>
@@ -76,32 +123,43 @@
       もう一度その点を見てください。ここにいます。ホーム。それは私たちです。それを誰もあなたが愛する、誰も知っている、誰ものすべての人間は、かつて自分たちの生活を聞いた。私たちの喜びの集計と苦しみ、何千もの自信を持って宗教、イデオロギーと経済の教義は、すべてのハンターと考量、すべての英雄と臆病者、すべての作成者と駆逐艦の文明、すべての王と農民、すべての若いカップルの愛、すべて母と父、希望に満ちた子、発明者エクスプ ローラー、モラル、すべての腐敗した政治家、すべて「スーパー スター、」のすべての教師のすべて「最高指導者、」すべての聖人と罪人の我々 の種の歴史 － 太陽光線に浮遊塵のほこりに住んで。
     </div>
 
-    <!-- <div id="until">
+    <!--
+    <div id="until">
       23<span class="unit">d</span>
       1<span class="unit">h</span>
       10<span class="unit">m</span>
       45<span class="unit">s</span>
-    </div> -->
+    </div> 
+    -->
     <header>
       <h1>SWIM</h1>
+      <div>DEEP-END, INFINITE ANTHROFUTURE DANCE NIGHT</div>
     </header>
 
     <div id="all">
       <div class="col">
-        BOSTON'S INNER SANCTUM DANCE NIGHT.
-      </div>
-      <div class="col">
-        <footer id="bottom">When?<br>November 26, 2012</footer>
-      </div>
-
-      <div class="col">
-        &nbsp;
-      </div>
-
-      <div class="col">
-        &nbsp;
+        <div>Middlesex Lounge</div>
+        <div><small>http://middlesexlounge.us/</small></div>
+        <br>
+        <div>November 26, 2012</div>
       </div>
     </div>
+
+    <div style="clear:both;">&nbsp;</div>
+
+    <div id="staggered">
+      <span>fuck</span>
+      <span>ing</span>
+      <br>
+      <span>hell</span>
+      <span>are we</span>
+      <br>
+      <span>dead</span>
+      <span>yet</span><br>
+      <span>??????????</span>
+    </div>
+
+    <div id="bywho"><a href="https://planwork.us/">PLANWORK</a></div>
 
 
   </body>
