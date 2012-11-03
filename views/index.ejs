@@ -4,6 +4,8 @@
     <title>SWIM</title>
     <meta name="viewport" content="initial-scale=1.0,width=device-width,height=device-height" />
 
+    <link rel="stylesheet" type="text/css" href="/public/style.css">
+
     <meta property="og:title" content="SWIM">
     <meta property="og:description" content="SWIM is ">
     <meta property="og:type" content="website">
@@ -30,29 +32,35 @@
         src: url("/public/DINWeb.woff") format("woff");
       }
       body {
-        font-family: DINWeb, DINWeb-Light, Helvetica, Arial, sans-serif;
-        font-size: 18pt;
-        background: url('/public/svv.im2.jpg') no-repeat center center fixed;
-        -webkit-background-size: cover;
-        -moz-background-size: cover;
-        -o-background-size: cover;
-        background-size: cover;
+        font-family: DINWeb-Light, Helvetica, Arial, sans-serif;
+        font-size: 28pt;
+
         margin: 0;
       }
       header {
         margin: 0 0 1em 0;
       }
       h1, h2, h3 {
+        font-family: DINWeb;
         margin: 0;
+        letter-spacing: .25em;
+      }
+      .subtext {
+        font-size: 60%;
+        letter-spacing: -1px;
+      }
+      .i-dreamt-this {
+        text-shadow: rgba(0, 0, 0, .6) -2px 0 2px, rgba(0, 0, 0, .8) 0 0 1px;
+        color: transparent;
+      }
+      .smaller {
+        font-size: 90%;
       }
       #until {
         font-size: 40pt;
         text-align: center;
         text-shadow: cyan -5px 0 0px, coral 5px 0 0px;
         letter-spacing: .25em;
-      }
-      #all {
-        margin: 10px;
       }
       .col {
         float: left;
@@ -69,41 +77,16 @@
         top: -1000px;
         right: -1000px;
       }
-      #staggered {
-        font-size: 90pt;
-      }
-      #staggered :nth-child(2) {
-        position: relative;
-        top: 40px;
-      }
-      #staggered :nth-child(3),
-      #staggered :nth-child(4) {
-        position: relative;
-        left: 20px;
-        top: 20px;
-      }
-      #staggered :nth-child(8) {
-        position: relative;
-        top: 80px;
-      }
-      #fucking {
-        background-color: black;
-        width: 300px;
-        color: white;
-        float: left;
-        height: 100%;
-        position: absolute;
-      }
       #bywho {
         font-size: 20px;
         position: fixed;
-        bottom: .25em;
-        right: .5em;
+        bottom: -3px;
+        right: 4%;
         z-index: 667;
       }
       #bywho a {
         color: transparent;
-        text-shadow: rgb(66,66,66) -2px 0 2px, rgb(66,66,66) 2px 0 2px;
+        text-shadow: rgba(00,00,00, .9) -2px 0 4px, rgb(00,00,00) 1px 0 3px;
         text-decoration: none;
       }
       #bywho a:hover {
@@ -133,48 +116,35 @@
       もう一度その点を見てください。ここにいます。ホーム。それは私たちです。それを誰もあなたが愛する、誰も知っている、誰ものすべての人間は、かつて自分たちの生活を聞いた。私たちの喜びの集計と苦しみ、何千もの自信を持って宗教、イデオロギーと経済の教義は、すべてのハンターと考量、すべての英雄と臆病者、すべての作成者と駆逐艦の文明、すべての王と農民、すべての若いカップルの愛、すべて母と父、希望に満ちた子、発明者エクスプ ローラー、モラル、すべての腐敗した政治家、すべて「スーパー スター、」のすべての教師のすべて「最高指導者、」すべての聖人と罪人の我々 の種の歴史 － 太陽光線に浮遊塵のほこりに住んで。
     </div>
 
-    <!--
-    <div id="until">
-      23<span class="unit">d</span>
-      1<span class="unit">h</span>
-      10<span class="unit">m</span>
-      45<span class="unit">s</span>
-    </div> 
-    -->
 
-    <div id="all">
-      <header>
-        <div class="sink"><div><h1>SWIM</h1></div></div>
-          <div>DEEP-END, INFINITE ANTHROFUTURE DANCE NIGHT</div>
-        </header>
-      <div class="col">
-        <div>Middlesex Lounge</div>
-        <div><small>http://middlesexlounge.us/</small></div>
-        <br>
-        <div>November 26, 2012</div>
+    <div id="shallow">
+      <div id="all">
+        <h1>SWIM</h1>
+        <div class="subtext i-dreamt-this"><span class="space-a">HA</span>VE <span class="space-b">A N</span>ICE <span class="space-c">DEE</span>P THANKS</div>
+
+        <div class="space">&nbsp;</div>
+
+        <div id="loc">
+          <div class="short">MIDDLESEX LOUNGE</div>
+          <div class="smaller">Cambridge, MA 02139</div>
+        </div>
+
+        <div class="space">&nbsp;</div>
+
+        <div id="tim">
+          <div class="short">November 26 (2012)</div>
+          <div class="smaller">9:00pm - 1:00am</div>
+        </div>
+
+        <div class="space">&nbsp;</div>
+
+        <div id="des">
+          <div class="short">DEEP HOUSE, DEEP BASS, AMBIENT</div>
+          <div class="smaller">Boston underwater dance night.</div>
+        </div>
       </div>
+      <div id="bywho"><a href="https://planwork.us/">PLANWORK</a></div>
     </div>
-
-    <div style="clear:both;">&nbsp;</div>
-
-    <div id="staggered">
-      <span>fuck</span>
-      <span>ing</span>
-      <br>
-      <span>hell</span>
-      <span>are we</span>
-      <br>
-      <span>dead</span>
-      <span>yet</span><br>
-      <span>??????????</span>
-    </div>
-
-    <div id="isuck">
-      <div>I AM SO SICK AT GRAPHIC DESIGN</div>
-    </div>
-
-    <div id="bywho"><a href="https://planwork.us/">PLANWORK</a></div>
-
 
   </body>
 </html>
