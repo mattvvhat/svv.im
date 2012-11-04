@@ -2,9 +2,11 @@
 <html lang="en">
   <head>
     <title>SWIM</title>
-    <meta name="viewport" content="initial-scale=1.0,width=device-width,height=device-height" />
 
-    <link rel="stylesheet" type="text/css" href="/public/style.css">
+    <meta name="viewport" content="initial-scale=1.0,width=device-width,height=device-height">
+
+    <link rel="stylesheet" href="/public/style.css" />
+    <link rel="stylesheet" href="/public/small.style.css" media="all and (max-width: 600px)" />
 
     <meta property="og:title" content="SWIM">
     <meta property="og:description" content="SWIM is ">
@@ -43,12 +45,6 @@
       .smaller {
         font-size: 90%;
       }
-      #until {
-        font-size: 40pt;
-        text-align: center;
-        text-shadow: cyan -5px 0 0px, coral 5px 0 0px;
-        letter-spacing: .25em;
-      }
       .col {
         float: left;
         margin: 0 1em 1em 0;
@@ -79,18 +75,6 @@
       #bywho a:hover {
         text-shadow: black 0 0 2px;
         text-decoration: none;
-      }
-      .sink {
-        border-style: solid;
-        border-width: 0 0 4px 0;
-        border-color: black;
-        display: inline-block;
-        overflow: hidden;
-      }
-      .sink div {
-        position: relative;
-        top: .6em;
-        left: -.2em;
       }
     </style>
   </head>

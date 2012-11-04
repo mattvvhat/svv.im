@@ -1,6 +1,6 @@
 body {
+  font-size: 30pt;
   font-family: DINWeb-Light, Helvetica, Arial, sans-serif;
-  font-size: 40pt;
   margin: 0;
   background: url('/public/water-deep.png');
   background: url('/public/water-deep.png') no-repeat center center fixed; 
@@ -25,7 +25,6 @@ h1, h2, h3 {
 }
 
 #shallow {
-  height: 100%;
   width: 92%;
   margin: 0% 4%;
   padding: 0;
@@ -42,10 +41,11 @@ h1, h2, h3 {
 }
 
 #all {
+  overflow-y: auto;
   max-width: 600px;
   margin: .1em auto;
   padding: 0 1em;
-  overflow: hidden;
+  overflow-x: hidden;
 }
 
 #loc, #tim, #des {

@@ -1,0 +1,13 @@
+body {
+  font-size: 23pt;
+}
+
+.i-dreamt-this {
+  text-shadow: rgba(0, 0, 0, .6) -1px 0 1px, rgba(0, 0, 0, .8) 0 0 0;
+  color: transparent;
+}
+
+
+.space {
+  height: 15px;
+}
