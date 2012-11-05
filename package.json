@@ -1,8 +1,8 @@
 {
   "name": "SWIM",
   "author": "Matt Owen",
-  "version": "0.0.1-25",
-  "description": "SWIM IS DEEP-END, INFINITE ANTHROFUTURE DANCE NIGHT",
+  "version": "0.1",
+  "description": "Boston's underwater dance night.",
   "main": "./app.js",
   "dependencies": {
     "express": "3.0.x",
