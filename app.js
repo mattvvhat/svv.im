@@ -10,9 +10,9 @@ var express = require("express"),
     io = require("socket.io").listen(server),
     querystring = require('querystring'), fs = require("fs"), path = require("path");
 
-// ensure that we are parsing raw POST requests, etc.
 app.use(express.bodyParser());
 app.use('/public', express.static(__dirname + '/public'));
+app.use(express.favicon(__dirname + '/public/favicon.ico', { maxAge: 2592000000 }))
 
 // svv.im/
 app.get("/", function (req, resp) {
@@ -27,8 +27,4 @@ app.get("/in/:location", function (req, resp) {
 // svv.im/at/...
 app.get("/at/:venue", function (req, resp) {
   resp.render("at.ejs");
-});
-
-// static files
-app.get("/scripts/:script", function (req, resp) {
 });
