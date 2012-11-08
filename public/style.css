@@ -1,7 +1,8 @@
 body { font-size: 30pt; font-family: DINWeb-Light, Helvetica, Arial, sans-serif;
   margin: 0;
-  background: url('/public/water-deep.png');
-  background: url('/public/water-deep.png') no-repeat center center fixed; 
+  background: url('/public/deep.png');
+  background: url('/public/deep.png') no-repeat center center fixed; 
+  background-color: black;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
@@ -68,20 +69,15 @@ h1, h2, h3 {
   margin: 0% 4%;
   padding: 0;
   z-index: -1;
-  min-height: 100%;
-
-  background: url('/public/water-shallow.png') no-repeat center center fixed; 
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
-  background-size: cover;
+  height: 100%;
+  position: absolute;
 }
 #all {
   overflow-y: auto;
+  overflow-x: hidden;
   max-width: 600px;
   margin: 0 auto;
   padding: 0 1em;
-  overflow-x: hidden;
 }
 #abt, #loc, #tim, #des {
   font-size: 47%;
