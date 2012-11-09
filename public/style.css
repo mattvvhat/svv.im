@@ -1,12 +1,10 @@
 body { font-size: 30pt; font-family: DINWeb-Light, Helvetica, Arial, sans-serif;
   margin: 0;
-  background: url('/public/deep.png');
-  background: url('/public/deep.png') no-repeat center center fixed; 
-  background-color: black;
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
-  background-size: cover;
+  background: url('/public/deep.png') repeat center center fixed; 
+  -webkit-background-size: 100% 100%;
+  -moz-background-size: 100% 100%;
+  -o-background-size: 100% 100%;
+  background-size: 100% 100%;
 }
 header {
   margin: 0 0 1em 0;
@@ -65,12 +63,8 @@ h1, h2, h3 {
   text-decoration: none;
 }
 #shallow {
-  width: 92%;
-  margin: 0% 4%;
   padding: 0;
   z-index: -1;
-  height: 100%;
-  position: absolute;
 }
 #all {
   overflow-y: auto;

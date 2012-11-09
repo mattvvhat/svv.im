@@ -8,7 +8,8 @@ var express = require("express"),
     http = require("http"),
     server = http.createServer(app).listen(process.env.PORT),
     io = require("socket.io").listen(server),
-    querystring = require('querystring'), fs = require("fs"), path = require("path");
+    querystring = require('querystring'), fs = require("fs"), path = require("path"),
+    idsecret = require('./idsecret');
 
 app.use(express.bodyParser());
 app.use('/public', express.static(__dirname + '/public'));
@@ -27,4 +28,11 @@ app.get("/in/:location", function (req, resp) {
 // svv.im/at/...
 app.get("/at/:venue", function (req, resp) {
   resp.render("at.ejs");
+});
+
+//
+app.post("/post", function (req, resp) {
+  resp.set("Content-Type", "text/plain");
+  resp.send("pinged");
+  io.sockets.send("pinged");
 });
