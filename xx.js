@@ -1,8 +1,12 @@
-var https = require('https'),
+var // CAT'S IN THE CRADLE AND THE SILVER SPOON
+    https = require('https'),
     idsecret = require('./idsecret');
 
-var url = 'api.instagram.com/v1/';
+var lastid = 0;
 
+/* 
+ * Get tagged media
+ */
 function getmedia (tag) {
 
   var options = {
@@ -46,4 +50,5 @@ function getmedia (tag) {
   req.end();
 }
 
-getmedia('red');
+// EXPORTS
+exports.getmedia = getmedia;

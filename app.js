@@ -10,7 +10,8 @@ var express = require("express"),
     server = http.createServer(app).listen(process.env.PORT),
     io = require("socket.io").listen(server),
     querystring = require('querystring'), fs = require("fs"), path = require("path"),
-    idsecret = require('./idsecret');
+    idsecret = require('./idsecret'),
+    ;
 
 app.use(express.bodyParser());
 app.use('/public', express.static(__dirname + '/public'));
@@ -78,11 +79,14 @@ app.post('/xxx', function (req, resp) {
 
   // Iterate through all sent objects
   for (var k=0; k < req.body.length; k++) {
+
     ids.push({
       subscription : req.body[k].subscription_id,
       object : req.body[k].object_id,
       time : req.body[k].time 
     });
+
+    var images = getmedia(req.body[k].object_id);
   }
 
   io.sockets.send(JSON.stringify(req.body));
