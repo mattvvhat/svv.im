@@ -95,7 +95,7 @@ h1, h2, h3 {
   margin: 0;
   padding: 0;
   -webkit-animation-name: swim-begin;
-  -webkit-animation-duration: .5s;
+  -webkit-animation-duration: .25s;
   -webkit-animation-iteration-count: 1;
   -webkit-animation-timing-function: ease-out;
   -webkit-animation-fill-mode: forwards;
@@ -103,7 +103,7 @@ h1, h2, h3 {
 }
 #instagrammer img:hover {
   -webkit-animation-name: cmon;
-  -webkit-animation-duration: .5s;
+  -webkit-animation-duration: .25s;
   -webkit-animation-iteration-count: 1;
   -webkit-animation-direction: alternate;
   -webkit-animation-timing-function: ease-out;
@@ -133,18 +133,18 @@ h1, h2, h3 {
   src: url("/public/DINWeb.woff") format("woff");
 }
 @-webkit-keyframes swim-begin {
-  100% {
-    -webkit-filter: blur(4px) saturate(10);
-  }
   0% {
-    -webkit-filter: blur(10px) saturate(4);
+    -webkit-filter: grayscale(0.) blur(1px) saturate(3);
+  }
+  100% {
+    -webkit-filter: grayscale(0.2) blur(3px) saturate(11);
   }
 }
 @-webkit-keyframes cmon {
   100% {
-    -webkit-filter: grayscale(0.) blur(1px) saturate(2);
+    -webkit-filter: grayscale(0.) blur(1px) saturate(3);
   }
   0% {
-    -webkit-filter: grayscale(0.2) blur(6px) saturate(9);
+    -webkit-filter: grayscale(0.2) blur(3px) saturate(11);
   }
 }

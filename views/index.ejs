@@ -42,6 +42,7 @@
     <script>
       // var sock = io.connect("http://svv.im/");
       var sock = io.connect("http://localhost:5000/");
+      var MAX_IMAGES = 10;
 
       sock.on('connect', function () {
       });
@@ -50,17 +51,19 @@
       });
 
       sock.on('message', function (images) {
+        var sources = [], images = _.first(JSON.parse(images), MAX_IMAGES);
+        addnew(images);
+      });
+
+      function addnew (images) {
         var sources = [];
-
-        images = _.first(JSON.parse(images), 5);
-
         for (var k = 0; k < images.length; k++) {
           sources.push(images[k].images.low_resolution.url);
           console.log(images[images.length - k - 1]);
         }
 
         instagrammer.add(sources);
-      });
+      }
 
     </script>
   </head>
@@ -148,7 +151,8 @@
           var /* ... */
               images = [],
               container = document.getElementById("instagrammer"),
-              dc = daisychain('instagrammer', {});
+              dc = daisychain('instagrammer', {}),
+              toremove = 0;
 
           dc.chain([ ]).start();
 
@@ -156,7 +160,13 @@
             add : function (sources) {
               sources = _.difference(sources, images);
               images = _.union(sources, images);
+              toremove = Math.max(0, images.length - MAX_IMAGES);
+              images = _.first(images, MAX_IMAGES);
+
               dc.prepend(sources);
+              dc.removetail(toremove);
+
+              console.log(images);
             }
           };
         })();
