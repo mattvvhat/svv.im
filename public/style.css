@@ -134,17 +134,15 @@ h1, h2, h3 {
 }
 @-webkit-keyframes swim-begin {
   100% {
-    opacity: 1.0;
     -webkit-filter: blur(4px) saturate(10);
   }
   0% {
-    opacity: 0;
     -webkit-filter: blur(10px) saturate(4);
   }
 }
 @-webkit-keyframes cmon {
   100% {
-    -webkit-filter: grayscale(0.5) blur(1px) saturate(2);
+    -webkit-filter: grayscale(0.) blur(1px) saturate(2);
   }
   0% {
     -webkit-filter: grayscale(0.2) blur(6px) saturate(9);

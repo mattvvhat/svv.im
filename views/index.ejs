@@ -20,8 +20,11 @@
     
     <script src="/public/jquery-1.7.1.min.js"></script>
     <script src="/public/socket.io.js"></script>
+    <script src="/public/underscore.js"></script>
+
     <script src="/public/modernizr.custom.js"></script>
     <script src="/public/ios-orientationchange-fix.js"></script>
+
     <script src="/public/daisychain.js"></script>
 
     <script>
@@ -47,26 +50,18 @@
       });
 
       sock.on('message', function (images) {
-        images = JSON.parse(images);
-        instagram(images);
+        var sources = [];
+
+        images = _.first(JSON.parse(images), 5);
+
+        for (var k = 0; k < images.length; k++) {
+          sources.push(images[k].images.low_resolution.url);
+          console.log(images[images.length - k - 1]);
+        }
+
+        instagrammer.add(sources);
       });
 
-      /*
-       *
-       */
-      function instagram (images) {
-        for (var k = 0; k < images.length; k++) {
-          add(images[images.length - k - 1]);
-        }
-
-        function add (i) {
-          var img = new Image();
-          img.onload = function () {
-            $("#instagrammer").prepend(img);
-          }
-          img.src = i.images.low_resolution.url;
-        }
-      }
     </script>
   </head>
   <body>
@@ -146,20 +141,26 @@
       </div>
 
       <div id="instagrammer"></div> 
-      <script>
-        var dc = daisychain('instagrammer', {});
-        dc.chain([
-          'http://distilleryimage5.s3.amazonaws.com/431c038ce00211e1ab4c22000a1e8b83_6.jpg',
-          'http://distilleryimage11.s3.amazonaws.com/c2d6f0182c1111e2af6f22000a1e9e28_6.jpg',
-          'http://distilleryimage6.s3.amazonaws.com/3c1552b02c5511e295e31231380ff907_6.jpg'
-        ]).start();
 
-        setTimeout(function () {
-          dc.prepend([
-            'http://distilleryimage6.s3.amazonaws.com/3c1552b02c5511e295e31231380ff907_6.jpg',
-            'http://distilleryimage5.s3.amazonaws.com/431c038ce00211e1ab4c22000a1e8b83_6.jpg'
-          ]);
-        }, 4000);
+      <!-- START -->
+      <script>
+        var instagrammer = (function () {
+          var /* ... */
+              images = [],
+              container = document.getElementById("instagrammer"),
+              dc = daisychain('instagrammer', {});
+
+          dc.chain([ ]).start();
+
+          return {
+            add : function (sources) {
+              sources = _.difference(sources, images);
+              images = _.union(sources, images);
+              dc.prepend(sources);
+            }
+          };
+        })();
+
       </script>
 
 
