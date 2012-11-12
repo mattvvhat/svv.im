@@ -22,6 +22,7 @@
     <script src="/public/socket.io.js"></script>
     <script src="/public/modernizr.custom.js"></script>
     <script src="/public/ios-orientationchange-fix.js"></script>
+    <script src="/public/daisychain.js"></script>
 
     <script>
       /*
@@ -36,19 +37,36 @@
       ]);
     </script>
     <script>
+      // var sock = io.connect("http://svv.im/");
       var sock = io.connect("http://localhost:5000/");
 
       sock.on('connect', function () {
-        console.log("connected");
       });
 
       sock.on('disconnect', function () {
-        console.log('disconnected');
       });
 
-      sock.on('message', function (data) {
-        console.log(data);
+      sock.on('message', function (images) {
+        images = JSON.parse(images);
+        instagram(images);
       });
+
+      /*
+       *
+       */
+      function instagram (images) {
+        for (var k = 0; k < images.length; k++) {
+          add(images[images.length - k - 1]);
+        }
+
+        function add (i) {
+          var img = new Image();
+          img.onload = function () {
+            $("#instagrammer").prepend(img);
+          }
+          img.src = i.images.low_resolution.url;
+        }
+      }
     </script>
   </head>
   <body>
@@ -125,7 +143,25 @@
           </div>
 
         </div>
-      </div> 
+      </div>
+
+      <div id="instagrammer"></div> 
+      <script>
+        var dc = daisychain('instagrammer', {});
+        dc.chain([
+          'http://distilleryimage5.s3.amazonaws.com/431c038ce00211e1ab4c22000a1e8b83_6.jpg',
+          'http://distilleryimage11.s3.amazonaws.com/c2d6f0182c1111e2af6f22000a1e9e28_6.jpg',
+          'http://distilleryimage6.s3.amazonaws.com/3c1552b02c5511e295e31231380ff907_6.jpg'
+        ]).start();
+
+        setTimeout(function () {
+          dc.prepend([
+            'http://distilleryimage6.s3.amazonaws.com/3c1552b02c5511e295e31231380ff907_6.jpg',
+            'http://distilleryimage5.s3.amazonaws.com/431c038ce00211e1ab4c22000a1e8b83_6.jpg'
+          ]);
+        }, 4000);
+      </script>
+
 
       <div id="bywho"><a href="https://planwork.us/">PLANWORK</a></div>
     </div>

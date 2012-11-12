@@ -11,6 +11,7 @@ var express = require("express"),
     io = require("socket.io").listen(server),
     querystring = require('querystring'), fs = require("fs"), path = require("path"),
     idsecret = require('./idsecret'),
+    instagram = require('./instagram')
     ;
 
 app.use(express.bodyParser());
@@ -41,27 +42,23 @@ app.get("/at/:venue", function (req, resp) {
 app.get("/ping", function (req, resp) {
   resp.set("Content-Type", "text/plain");
   resp.send("pinged");
-  io.sockets.send("pinged");
 });
 
 //
 app.post("/ping", function (req, resp) {
   resp.set("Content-Type", "text/plain");
   resp.send("pinged");
-  io.sockets.send("pinged");
 });
 
 //
 app.get('/xxx', function (req, resp) {
-  // Plain-text
+  // Respond immediately with nothing
   resp.set('Content-Type', 'text/plain');
+  resp.send('');
 
-  if(req.param("hub.challenge") != null)
-    resp.send(req.param("hub.challenge"));
-  else
-    resp.send('');
-
-  io.sockets.send("SUBSCRIPTION");
+  instagram.getmedia('pool', function (images) {
+    io.sockets.send(JSON.stringify(images));
+  });
 });
 
 /* POST request to get update from server
@@ -72,26 +69,7 @@ app.post('/xxx', function (req, resp) {
   resp.set('Content-Type', 'text/plain');
   resp.send('');
 
-  io.sockets.send("INSTAGRAM UPDATED");
-
-  // Xxx
-  var ids = [];
-
-  // Iterate through all sent objects
-  for (var k=0; k < req.body.length; k++) {
-
-    ids.push({
-      subscription : req.body[k].subscription_id,
-      object : req.body[k].object_id,
-      time : req.body[k].time 
-    });
-
-    var images = getmedia(req.body[k].object_id);
-  }
-
-  io.sockets.send(JSON.stringify(req.body));
-
+  instagram.getmedia('pool', function (images) {
+    io.sockets.send(JSON.stringify(images));
+  });
 });
-
-function getMedia (tag) {
-}
