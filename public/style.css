@@ -9,6 +9,10 @@ body { font-size: 30pt; font-family: DINWeb-Light, Helvetica, Arial, sans-serif;
 header {
   margin: 0 0 1em 0;
 }
+a {
+  color: black;
+  text-decoration: underline;
+}
 h1, h2, h3 {
   font-family: DINWeb;
   margin: 0;
