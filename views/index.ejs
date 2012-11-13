@@ -58,7 +58,6 @@
         var sources = [];
         for (var k = 0; k < images.length; k++) {
           sources.push(images[k].images.low_resolution.url);
-          console.log(images[images.length - k - 1]);
         }
 
         instagrammer.add(sources);
@@ -192,8 +191,6 @@
 
               dc.prepend(sources);
               dc.removetail(toremove);
-
-              console.log(images);
             }
           };
         })();
