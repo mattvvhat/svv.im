@@ -22,10 +22,10 @@ app.use(express.favicon(__dirname + '/public/favicon.ico', { maxAge: 2592000000 
 app.get("/", function (req, resp) {
   resp.render("index.ejs");
 });
-
+//
 // svv.im/
-app.get("/watch", function (req, resp) {
-  resp.render("watch.ejs");
+app.get("/fuck", function (req, resp) {
+  resp.render("fuckit.ejs");
 });
 
 // svv.im/in/...

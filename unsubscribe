@@ -1,0 +1,2 @@
+#!/bin/bash
+curl -X DELETE https://api.instagram.com/v1/subscriptions?client_secret=61101f91b9e74535a4babfdd1bf5977e\&object=all\&client_id=3718397327f94baa81c765118a056b58

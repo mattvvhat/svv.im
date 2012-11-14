@@ -1,3 +1,53 @@
+/* VARYING STYLES
+ * THESE STYLES VARY ACROSS BROWSER WIDTH.
+ * THEY CONTROL THE LAYOUT OF THE PAGE, AND WHETHER IT'S SET FOR MOBILE/MED/LG.
+ */
+
+#inf, #djs, #instagrammer {
+  text-shadow: rgba(121,206,226,.35) 1px 1px 0px;
+}
+
+#inf {
+  position: fixed;
+  top: 0px;
+  padding: 20px 0;
+}
+
+#djs {
+}
+
+#instagrammer {
+  position: absolute;
+}
+
+#inf {
+  left: 18.23%;
+  width: 350px;
+}
+
+#djs {
+  left: 5%;
+  width: 350px;
+}
+
+#instagrammer {
+  left: 71.0%;
+  width: 306px;
+  background-color: rgba(250,250,0, .8);
+}
+
+#size {
+  position: fixed;
+  left: 2px;
+  bottom: 2px;
+}
+
+
+/* STATIC STYLES
+ * THESE STYLES NEVER CHANGE, AND ARE USUALLY RELATIVE TO THE PAGE.
+ */
+
+
 body { 
   font-size: 30pt;
   font-family: DINWeb-Light, Helvetica, Arial, sans-serif;
@@ -73,15 +123,6 @@ h1, h2, h3 {
   margin: 0 auto;
   margin: 0 4% 0 2%;
 }
-#all {
-  width: 
-  overflow-y: auto;
-  overflow-x: hidden;
-  max-width: 400px;
-  margin: 0 auto;
-  padding: 0 1em;
-  float: left;
-}
 #abt, #loc, #tim, #des {
   font-size: 47%;
 }
@@ -156,3 +197,9 @@ h1, h2, h3 {
     -webkit-filter: grayscale(0.2) blur(3px) saturate(11);
   }
 }
+
+
+
+
+
+

@@ -1,0 +1,11 @@
+#!/bin/sh
+
+curl -F 'client_id=1b7f74c7514b4bfea1ba2401ad94267b' \
+     -F 'client_secret=11d26b5980504e2f85a8b4f8bc691ba3' \
+     -F 'object=geography' \
+     -F 'aspect=media' \
+     -F 'lat=35.657872' \
+     -F 'lng=139.70232' \
+     -F 'radius=1000' \
+     -F 'callback_url=http://svv.im/xxx' \
+     https://api.instagram.com/v1/subscriptions/

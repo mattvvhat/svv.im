@@ -1,0 +1,9 @@
+#!/bin/bash
+
+curl -F 'client_id=7691f0b408ac422491d9b54964ded011' \
+     -F 'client_secret=9b991c4c32b04eb5a05afe004bff8600' \
+     -F 'object=tag' \
+     -F 'aspect=media' \
+     -F 'object_id=pool' \
+     -F 'callback_url=http://svv.im/xxx' \
+     https://api.instagram.com/v1/subscriptions/

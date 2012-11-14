@@ -1,0 +1,39 @@
+/* LIGHT BLUE: rgb(121,206,226)
+ * DARK BLUE:  rgb(34,35,91)
+ */
+
+#inf, #djs, #instagrammer {
+  text-shadow: rgba(121,206,226,.35) 1px 1px 0px;
+}
+
+#inf, #djs {
+  position: fixed;
+  top: 0px;
+  padding: 20px 0;
+}
+
+#instagrammer {
+  position: absolute;
+}
+
+#inf {
+  left: 38.23%;
+  width: 350px;
+}
+
+#djs {
+  left: 5%;
+  width: 350px;
+}
+
+#instagrammer {
+  left: 71.0%;
+  width: 306px;
+  background-color: rgba(250,250,0, .8);
+}
+
+#size {
+  position: fixed;
+  left: 2px;
+  bottom: 2px;
+}
