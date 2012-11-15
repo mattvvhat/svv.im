@@ -12,7 +12,7 @@ body {
   margin: 0 auto;
 }
 
-#instagrammer {
+#instagrammer-wrapper, #instagrammer {
   margin: 0 auto;
   left: 0;
   top: 0;

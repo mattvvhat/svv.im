@@ -12,7 +12,7 @@
   left: 6%;
 }
 
-#instagrammer {
+#instagrammer-wrapper, #instagrammer {
   position: absolute;
   top: 0;
   right: 13%;
