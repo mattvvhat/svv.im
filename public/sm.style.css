@@ -7,7 +7,22 @@ body {
   color: transparent;
 }
 
+#inf, #djs, #instagrammer {
+  position: relative;
+  margin: 0 auto;
+}
+
+#instagrammer {
+  margin: 0 2500px;
+  left: 0;
+  top: 0;
+}
+
+#instagrammer {
+  width: 200px;
+}
+
 
 .space {
-  height: 15px;
+  height: 20px;
 }

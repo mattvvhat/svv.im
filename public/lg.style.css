@@ -29,11 +29,14 @@
 #instagrammer {
   left: 71.0%;
   width: 306px;
-  background-color: rgba(250,250,0, .8);
 }
 
 #size {
   position: fixed;
   left: 2px;
   bottom: 2px;
+}
+
+#sexually-aunt {
+  display: none;
 }

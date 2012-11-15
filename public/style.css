@@ -7,33 +7,19 @@
   text-shadow: rgba(121,206,226,.35) 1px 1px 0px;
 }
 
-#inf {
-  position: fixed;
-  top: 0px;
-  padding: 20px 0;
-}
-
-#djs {
+#inf, #djs {
+  position: relative;
+  left: 6%;
 }
 
 #instagrammer {
   position: absolute;
+  top: 0;
+  right: 13%;
 }
 
-#inf {
-  left: 18.23%;
-  width: 350px;
-}
-
-#djs {
-  left: 5%;
-  width: 350px;
-}
-
-#instagrammer {
-  left: 71.0%;
-  width: 306px;
-  background-color: rgba(250,250,0, .8);
+#inf, #djs {
+  width: 300px;
 }
 
 #size {
@@ -131,10 +117,6 @@ h1, h2, h3 {
 }
 #des .smaller {
   letter-spacing: .16em;
-}
-#instagrammer {
-  width: 310px;
-  float: left;
 }
 #instagrammer img {
   border-width: 0;
