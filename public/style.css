@@ -107,7 +107,6 @@ h1, h2, h3 {
   padding: 0;
   z-index: -1;
   margin: 0 auto;
-  margin: 0 4% 0 2%;
 }
 #abt, #loc, #tim, #des {
   font-size: 47%;

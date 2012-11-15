@@ -13,16 +13,32 @@ body {
 }
 
 #instagrammer {
-  margin: 0 2500px;
+  margin: 0 auto;
   left: 0;
   top: 0;
 }
 
-#instagrammer {
-  width: 200px;
+.space {
+  height: 20px;
+}
+
+#bywho {
+  bottom: -14px;
 }
 
 
-.space {
-  height: 20px;
+#instagrammer-wrapper {
+  position: relative;
+  max-width: 100%;
+  white-space: nowrap;
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+
+#instagrammer {
+  width: 2100px;
+}
+
+#instagrammer div img, #instagrammer div {
+  float: left;
 }
