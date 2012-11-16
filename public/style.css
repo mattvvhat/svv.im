@@ -3,29 +3,21 @@
  * THEY CONTROL THE LAYOUT OF THE PAGE, AND WHETHER IT'S SET FOR MOBILE/MED/LG.
  */
 
-#inf, #djs, #instagrammer {
-  text-shadow: rgba(121,206,226,.35) 1px 1px 0px;
-}
-
 #inf, #djs {
   position: relative;
-  left: 6%;
-}
-
-#instagrammer-wrapper, #instagrammer {
-  position: absolute;
-  top: 0;
-  right: 13%;
+  left: 15%;
 }
 
 #inf, #djs {
   width: 300px;
 }
 
-#size {
+#instagrammer-wrapper {
   position: fixed;
-  left: 2px;
-  bottom: 2px;
+  top: 0;
+  left: 70%;
+  margin: 0;
+  padding: 0;
 }
 
 
@@ -89,10 +81,13 @@ h1, h2, h3 {
 }
 
 #bywho {
+  font-size: 40px;
   position: fixed;
-  bottom: -7px;
+  bottom: -12px;
   right: 5%;
   z-index: 667;
+  margin: 0;
+  padding: 0;
 }
 #bywho a {
   color: transparent;
@@ -116,6 +111,12 @@ h1, h2, h3 {
 }
 #des .smaller {
   letter-spacing: .16em;
+}
+#inf, #djs, #instagrammer {
+  text-shadow: rgba(121,206,226,.35) 1px 1px 0px;
+}
+#instagrammer-wrapper, #instagrammer {
+  width: 200px;
 }
 #instagrammer img {
   border-width: 0;
@@ -178,9 +179,3 @@ h1, h2, h3 {
     -webkit-filter: grayscale(0.2) blur(3px) saturate(11);
   }
 }
-
-
-
-
-
-

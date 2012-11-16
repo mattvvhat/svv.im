@@ -7,8 +7,10 @@ body {
   color: transparent;
 }
 
-#inf, #djs, #instagrammer {
+#inf, #djs {
   position: relative;
+  left: 0;
+  top: 0;
   margin: 0 auto;
 }
 
@@ -35,7 +37,7 @@ body {
   overflow-y: hidden;
 }
 
-#instagrammer {
+#instagrammer, #instagrammer-wrapper {
   width: 2100px;
 }
 
