@@ -1,7 +1,7 @@
 {
   "name": "SWIM",
   "author": "Matt Owen",
-  "version": "0.1.0-11",
+  "version": "0.2.0",
   "description": "Boston's underwater dance night.",
   "main": "./app.js",
   "dependencies": {
