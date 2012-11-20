@@ -39,6 +39,7 @@
        */
 
       var sock = io.connect("http://svv.im/"),
+      // var sock = io.connect("http://localhost:5000/"),
           MAX_IMAGES = 10;
 
       sock.on('connect', function () {
@@ -179,5 +180,27 @@
       <!-- PLANWORK, LLC. -->
       <div id="bywho"><a href="https://planwork.us/">PLANWORK</a></div>
     </div>
+    <script>
+    var instagrammer = (function () {
+      var /* ... */
+        images = [],
+        container = document.getElementById("instagrammer"),
+        dc = daisychain('instagrammer', {}),
+        toremove = 0;
+
+      dc.chain([ ]).start();
+
+      return {
+        add : function (sources) {
+          sources = _.difference(sources, images);
+          images = _.union(sources, images);
+          toremove = Math.max(0, images.length - MAX_IMAGES);
+          images = _.first(images, MAX_IMAGES);
+          dc.prepend(sources);
+          dc.removetail(toremove);
+          }
+      };
+    })();
+    </script>
   </body>
 </html>
