@@ -89,7 +89,7 @@ var daisychain = function (container, options) {
         var div = document.createElement("DIV");
         setTimeout(function () {
           $(div).height(0)
-                .animate({ height : '306px' }, ANIMATION_TIME)
+                .animate({ height : '200px' }, ANIMATION_TIME)
                 .prepend(img)
                 .prependTo(container);
           loadnext();
