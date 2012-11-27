@@ -3,6 +3,8 @@
  * THEY CONTROL THE LAYOUT OF THE PAGE, AND WHETHER IT'S SET FOR MOBILE/MED/LG.
  */
 
+/* LIGHT BLUE: rgb(123,208,228) */
+
 #inf, #djs {
   position: relative;
   left: 15%;
@@ -30,6 +32,7 @@ body {
   font-size: 30pt;
   font-family: DINWeb-Light, Helvetica, Arial, sans-serif;
   margin: 0;
+  background-color: rgb(123,208,228);
   background: url('/public/shallow.png') repeat center center fixed; 
   -webkit-background-size: 100% 100%;
   -moz-background-size: 100% 100%;
