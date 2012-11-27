@@ -33,7 +33,7 @@ body {
   font-family: DINWeb-Light, Helvetica, Arial, sans-serif;
   margin: 0;
   background-color: rgb(123,208,228);
-  background: url('/public/shallow.png') repeat center center fixed; 
+  background: rgb(123,208,228) repeat fixed center center url('/public/shallow.png');
   -webkit-background-size: 100% 100%;
   -moz-background-size: 100% 100%;
   -o-background-size: 100% 100%;
@@ -44,7 +44,7 @@ header {
 }
 a {
   color: black;
-  text-decoration: underline;
+  text-decoration:none;
 }
 h1, h2, h3 {
   font-family: DINWeb;
