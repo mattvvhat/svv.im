@@ -33,17 +33,18 @@ body {
   font-family: DINWeb-Light, Helvetica, Arial, sans-serif;
   margin: 0;
   background-color: rgb(123,208,228);
-  background: rgb(123,208,228) repeat fixed center center url('/public/shallow.png');
+  background: rgb(5,1,18) repeat fixed center center url('/public/deep.png');
   -webkit-background-size: 100% 100%;
   -moz-background-size: 100% 100%;
   -o-background-size: 100% 100%;
   background-size: 100% 100%;
+  color: rgb(230,230,230);
 }
 header {
   margin: 0 0 1em 0;
 }
 a {
-  color: black;
+  color: white;
   text-decoration:none;
 }
 h1, h2, h3 {
@@ -58,7 +59,7 @@ h1, h2, h3 {
   word-spacing: .3em;
 }
 .i-dreamt-this {
-  text-shadow: rgba(0, 0, 0, .6) -2px 0 2px, rgba(0, 0, 0, .8) 0 0 1px;
+  text-shadow: rgba(200, 200, 200, .6) -2px 0 2px, rgba(200, 200, 200, .8) 0 0 1px;
   color: transparent;
 }
 .space {
@@ -116,7 +117,7 @@ h1, h2, h3 {
   letter-spacing: .16em;
 }
 #inf, #djs, #instagrammer {
-  text-shadow: rgba(121,206,226,.35) 1px 1px 0px;
+  text-shadow: rgb(17,24,37);
 }
 #instagrammer-wrapper, #instagrammer {
   width: 200px;
