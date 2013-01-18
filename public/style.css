@@ -47,6 +47,9 @@ a {
   color: white;
   text-decoration:none;
 }
+a:hover {
+  text-decoration: underline;
+}
 h1, h2, h3 {
   font-family: DINWeb;
   margin: 0;
@@ -59,7 +62,7 @@ h1, h2, h3 {
   word-spacing: .3em;
 }
 .i-dreamt-this {
-  text-shadow: rgba(200, 200, 200, .6) -2px 0 2px, rgba(200, 200, 200, .8) 0 0 1px;
+  text-shadow: rgba(200, 200, 200, .6) -3px 0 2px, rgba(200, 200, 200, .8) 2px 0 1px;
   color: transparent;
 }
 .space {
