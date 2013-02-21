@@ -26,7 +26,17 @@ function getmedia (tag, callback) {
 
     // Data has stopped coming in
     res.on('end', function () {
-      var o = JSON.parse(data);
+      var o = {};
+
+      try {
+        o = JSON.parse(data);
+      }
+      catch (ex) {
+        o = {};
+        results = [];
+        callback.call(undefined, results);
+        return undefined;
+      };
 
       var max_id = o.pagination.next_max_tag_id,
           min_id = o.pagination.min_tag_id, next_url;
