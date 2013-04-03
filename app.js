@@ -54,7 +54,8 @@ app.post("/ping", function (req, resp) {
 app.get('/xxx', function (req, resp) {
   // Respond immediately with nothing
   resp.set('Content-Type', 'text/plain');
-  resp.send('');
+  console.log('okay = ' + req.param("hub.challenge"));
+  resp.send(req.param("hub.challenge"));
 
   instagram.getmedia('pool', function (images) {
     io.sockets.send(JSON.stringify(images));
@@ -67,7 +68,8 @@ app.get('/xxx', function (req, resp) {
 app.post('/xxx', function (req, resp) {
   // Respond immediately with nothing
   resp.set('Content-Type', 'text/plain');
-  resp.send('');
+  console.log('okay = ' + req.param("hub.challenge"));
+  resp.send(req.param("hub.challenge"));
 
   instagram.getmedia('pool', function (images) {
     io.sockets.send(JSON.stringify(images));

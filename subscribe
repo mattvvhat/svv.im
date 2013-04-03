@@ -1,7 +1,7 @@
 #!/bin/bash
 
-curl -F 'client_id=7691f0b408ac422491d9b54964ded011' \
-     -F 'client_secret=9b991c4c32b04eb5a05afe004bff8600' \
+curl -F 'client_id=1b7f74c7514b4bfea1ba2401ad94267b' \
+     -F 'client_secret=11d26b5980504e2f85a8b4f8bc691ba3' \
      -F 'object=tag' \
      -F 'aspect=media' \
      -F 'object_id=pool' \
