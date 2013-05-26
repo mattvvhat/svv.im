@@ -14,8 +14,6 @@ var express = require("express"),
     instagram = require('./instagram')
     ;
 
-console.log(process.env.PORT);
-
 app.use(express.bodyParser());
 app.use('/public', express.static(__dirname + '/public'));
 app.use(express.favicon(__dirname + '/public/favicon.ico', { maxAge: 2592000000 }))
