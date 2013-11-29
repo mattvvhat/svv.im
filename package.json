@@ -1,14 +1,17 @@
 {
   "name": "SWIM",
   "author": "Matt Owen",
-  "version": "2013.11.05-0",
+  "version": "2013.12.03",
   "description": "p l e a s e f e e l d e e p . t h a n k s .",
   "main": "./app.js",
   "dependencies": {
-    "express": "3.0.x",
+    "express": "3.x.x",
     "socket.io": "0.9.x",
+    "nodemailer": "0.5.x",
+    "instagram-node-lib": "x.x.x",
     "ejs": "0.8.x",
-    "ogp": "0.0.x"
+    "request": "x.x.x",
+    "step": "0.0.x"
   },
   "engines": {
     "node": "0.8.x",

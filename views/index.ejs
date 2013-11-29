@@ -1,217 +1,233 @@
 <!DOCTYPE html>
-<html lang="en">
+<!--
+
+-->
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
   <head>
-    <title>s vv i m</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>p l e a s e f e e l d e e p t h a n k s</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+    <!-- * -->
+    <link rel="shortcut icon" href="http://razorbla.de/favicon.ico">
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300' rel='stylesheet' type='text/css'>
+    <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
+    <link rel="stylesheet" href="/public/css/normalize.css">
+    <link rel="stylesheet" href="/public/css/main.css">
+    <link rel="stylesheet" href="/public/css/planworked.css">
+    <link rel="stylesheet" href="/public/css/index.css">
 
-    <link rel="stylesheet" href="/public/style.css" />
-    <link rel="stylesheet" href="/public/sm.style.css" media="all and (max-width: 700px)" />
-    <link rel="stylesheet" href="/public/lg.style.css" media="all and (min-width: 1056px)" />
+    <!-- @ -->
+    <script src="/public/js/vendor/modernizr-2.6.2.min.js"></script>
+    <script src="/public/js/vendor/live.js" ></script>
+    <script src="/socket.io/socket.io.js"   ></script>
 
-    <meta property="og:title" content="s vv i m">
-    <meta property="og:description" content="c u l t u r a l t o u r i s m">
-    <meta property="og:url" content="http://svv.im/">
-    <meta property="og:type" content="image">
-    <meta property="og:image" content="http://svv.im/public/icon2.png">
-    <meta property="og:image:width" content="843">
-    <meta property="og:image:height" content="474">
-    
-    <script src="/public/jquery-1.7.1.min.js"></script>
-    <script src="/public/socket.io.js"></script>
-    <script src="/public/underscore.js"></script>
-
-    <script src="/public/modernizr.custom.js"></script>
-    <script src="/public/ios-orientationchange-fix.js"></script>
-
-    <script src="/public/daisychain.js"></script>
-
+    <!-- !!! Harvester Scripts -->
+    <!-- <script src="/public/js/instagram-harvester/app.js"></script> -->
     <script>
-      yepnope([
-        {
-          test : Modernizr.backgroundsize,
-          nope : '/public/background-size-fix.js'
+      var socket = io.connect('http://instagram-harvester.jit.su:80');
+
+      socket.on('connect', function () {
+        console.log('connected');
+      });
+
+      socket.on('message', function (data) {
+        var videos = [], images = [];
+
+        try {
+          data = JSON.parse(data);
         }
-      ]);
-
-      /*
-       * BUFFER BETWEEN
-       * ....
-       * 
-       */
-
-      var sock = io.connect("http://svv.im/"),
-      // var sock = io.connect("http://localhost:5000/"),
-          MAX_IMAGES = 10;
-
-      sock.on('connect', function () {
-      });
-
-      sock.on('disconnect', function () {
-      });
-
-      sock.on('message', function (images) {
-        var sources = [], images = _.first(JSON.parse(images), MAX_IMAGES);
-        addnew(images);
-      });
-
-      /*
-       * USEFUL FUNCTIONS
-       * ....
-       */
-
-      function addnew (images) {
-        var sources = [];
-        for (var k = 0; k < images.length; k++) {
-          sources.push(images[k].images.low_resolution.url);
+        catch (err) {
+          data = [ ];
+          console.log('* Error with JSON.parse failed *');
+          return;
         }
 
-        instagrammer.add(sources);
+        if (!data || data.data === undefined || data.data.length < 1) {
+          console.log('Error: data object is no good. Ignoring rest of procedure');
+          return;
+        }
+
+        for (var i=0; i < data.data.length; i++) {
+          var media = data.data[i];
+
+          if (media.type === 'video') {
+            var vid = media;
+            videos.push(vid);
+          }
+          else {
+            var img = media;
+            images.push(img);
+          }
+        }
+
+        console.log('videos.length = ' + videos.length);
+
+        for (var i = 0; i < 1; i++) {
+          var vid = videos[i];
+          var low_res_video = videos[i].videos.low_resolution;
+          var videoElement = document.getElementById('video-element');
+          var tags = vid.tags;
+          console.log(tags.join(', '));
+          videoElement.src    = low_res_video.url;
+          videoElement.volume = 0.00;
+          if (videoElement.pause) {
+            videoElement.play();
+          }
+        }
+
+      });
+    </script>
+    <style>
+      #div-bg {
+        position: fixed; 
+        top: -50%; 
+        left: -50%; 
+        width: 200%; 
+        height: 200%;
+        background-color: white;
+      }
+      #div-bg #video-element {
+        position: absolute; 
+        top: 0; 
+        left: 0; 
+        right: 0; 
+        bottom: 0; 
+        margin: auto; 
+        min-width: 50%;
+        min-height: 50%;
       }
 
-    </script>
+      nav {
+        width: 100%;
+      }
+      nav .subsec {
+        width: 600px;
+        margin: 0 auto;
+      }
+
+      #all-center {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        vertical-align: middle;
+        color: black;
+        display: table-cell;
+        vertical-align: middle;
+      }
+      #all-center div {
+        text-align: center;
+        font-size: 800%;
+        text-shadow: 0 0 3px rgba(255, 255, 255, .5);
+      }
+      #content {
+        text-shadow: 1px 1px 0px rgba(50, 50, 50, .25);
+      }
+      hr {
+        border-color: rgba(33, 33, 33, .6);
+      }
+
+    </style>
   </head>
   <body>
 
-    <div id="shallow">
-      <!-- INFORMATION -->
-      <div id="inf">
-        <h1>SWIM</h1>
-        <div class="subtext i-dreamt-this">PLEASE FEEL DEEP. THANKS.</div>
-
-        <div class="space">&nbsp;</div>
-  
-        <div id="abt">
-          <div class="short">CAMBRIDGE CULTURAL TOURISM</div>
-          <div class="smaller">house/bass/30-minute-no-wait</div>
-        </div>
-
-        <div class="space">&nbsp;</div>
-  
-        <div id="loc">
-          <div class="short">Middlesex Lounge</div>
-          <div class="smaller">Cambridge, MA 02139</div>
-        </div>
-
-        <div class="space">&nbsp;</div>
-
-        <div id="tim">
-          <div class="short">November 5 (2013)</div>
-          <div class="smaller">9:00pm - 1:00am</div>
-        </div>
-
-        <div class="space">&nbsp;</div>
-
-        <div id="des">
-          <div class="short">HOUSE, BASS, TECHNO</div>
-          <div class="smaller">Corporate Dance Night</div>
-        </div>
-      </div>
-
-      <!-- PADDING -->
-      <div class="lg-space">&nbsp;</div>
-
-      <!-- DJs -->
-      <div id="djs">
-        <div>
-          <div>FUZZYFOTCH</div>
-          <div class="subtext i-dreamt-this">bad shoe records</div>
-          <div id="tim">
-            <div class="short">
-              <a href="https://soundcloud.com/fuzzyfotch">https://soundcloud.com/fuzzyfotch</a>
-            </div>
-          </div>
-        </div>
-
-        <div class="space">&nbsp;</div>
-
-        <div>
-          <div>KIDD DRUNKADELIC</div>
-          <div class="subtext i-dreamt-this">(sub)spot</div>
-          <div id="tim">
-            <div class="short">
-              <a href="https://soundcloud.com/kidd-drunkadelic">https://soundcloud.com/kidd-drunkadelic</a>
-            </div>
-          </div>
-        </div>
-
-        <!--
-        <div class="space">&nbsp;</div>
-
-        <div>
-          <div>Colby Drasher</div>
-          <div class="subtext i-dreamt-this">don't ask don't tell</div>
-          <div id="tim">
-            <div class="short">
-              <a href="https://soundcloud.com/durkinmusic">https://soundcloud.com/colbydrasher</a>
-            </div>
-          </div>
-        </div>
-        -->
-
-        <div class="space">&nbsp;</div>
-
-        <div>
-          <div>Ian Edwards</div>
-          <div class="subtext i-dreamt-this">providence</div>
-          <div id="tim">
-            <div class="short">
-              <a href="https://soundcloud.com/ian-flux">https://soundcloud.com/ian-flux</a>
-            </div>
-          </div>
-        </div>
-
-        <div class="space">&nbsp;</div>
-
-
-      <!-- PADDING -->
-      <div class="lg-space">&nbsp;</div>
-
-      <!--  INSTAGRAM -->
-      <!--
-      <div id="instagrammer-wrapper">
-        <div id="instagrammer">
-        </div> 
-      </div> 
-      -->
-
-      <!-- PLANWORK, LLC. -->
-      <div id="bywho"><a href="https://planwork.us/">PLANWORK</a></div>
+    <!-- @@@ -->
+    <div id="div-bg">
+      <video autoplay="autoplay" loop id="video-element" type="video/mp4"></video>
     </div>
+
+    <nav id="header">
+      <section class="subsec" id="sec-info">
+        <section id="subsec-name">
+          svvim
+          <small>
+            <!-- <a href="http://instagram.com/mattvvhat"><i class="fa fa-instagram"></i></a> -->
+            <a href="http://facebook.com/svvim"><i class="fa fa-facebook-square"></i></a>
+          </small>
+        </section>
+        <section id="subsec-main-links">
+          p l e a s e f e e l d e e p t h a n k s
+          <ul class="pw-inline-list">
+            <!-- <li><a href="#sec-side-projects">Side Projects</a></li> -->
+          </ul>
+        </section>
+        <section id="subsec-find-me-links">
+          <ul class="pw-inline-list">
+          </ul>
+        </section>
+      </section>
+    </nav>
+
+    <!-- content -->
+    <article id="content">
+      <section>
+        <br><br>
+        <div>
+          <div>12.03.2013</div>
+          <div>@ Middlesex Lounge</div>
+          <div>
+            315 Massachusetts Ave,<br>
+            Cambridge, MA 02139
+          </div>
+        </div>
+        <br><br>
+        <div>
+          <h3>GENERAL MOTOR</h3>
+          <p>House</p>
+          <div><a href="https://soundcloud.com/general-motor">soundcloud</a></div>
+        </div>
+        <div>
+          <h3>ROMAN PERRY</h3>
+          <p>House</p>
+          <div><a href="https://www.facebook.com/RomanPerryMusic">soundcloud</a></div>
+        </div>
+        <div>
+          <h3>FUZZY FOTCH</h3>
+          <p>House, Tropical, Bass</p>
+          <div><a href="https://soundcloud.com/fuzzyfotch">soundcloud</a></div>
+        </div>
+        <div>
+          <h3>BRAD MOOD</h3>
+          <p>R&amp;B Classics, Hardcore Grime</p>
+          <div><a href="https://soundcloud.com/brad-mood-doesnt-do-internet">soundcloud</a></div>
+        </div>
+        <hr>
+        <h3>REQUEST FOR URGENT BUSINESS RELATIONSHIP</h3> 
+        <p>FIRST, I MUST SOLICIT YOUR STRICTEST CONFIDENCE IN THIS TRANSACTION. THIS IS BY VIRTUE OF ITS NATURE AS BEING UTTERLY CONFIDENTIAL AND 'TOP SECRET'. I AM SURE AND HAVE CONFIDENCE OF YOUR ABILITY AND RELIABILITY TO PROSECUTE A TRANSACTION OF THIS GREAT MAGNITUDE INVOLVING A PENDING TRANSACTION REQUIRING MAXIIMUM CONFIDENCE.</p>
+        <p>WE ARE TOP OFFICIAL OF THE FEDERAL GOVERNMENT CONTRACT REVIEW PANEL WHO ARE INTERESTED IN IMPORATION OF GOODS INTO OUR COUNTRY WITH FUNDS WHICH ARE PRESENTLY TRAPPED IN NIGERIA. IN ORDER TO COMMENCE THIS BUSINESS WE SOLICIT YOUR ASSISTANCE TO ENABLE US TRANSFER INTO YOUR ACCOUNT THE SAID TRAPPED FUNDS.</p>
+        <p>THE SOURCE OF THIS FUND IS AS FOLLOWS; DURING THE LAST MILITARY REGIME HERE IN NIGERIA, THE GOVERNMENT OFFICIALS SET UP COMPANIES AND AWARDED THEMSELVES CONTRACTS WHICH WERE GROSSLY OVER-INVOICED IN VARIOUS MINISTRIES. THE PRESENT CIVILIAN GOVERNMENT SET UP A CONTRACT REVIEW PANEL AND WE HAVE IDENTIFIED A LOT OF INFLATED CONTRACT FUNDS WHICH ARE PRESENTLY FLOATING IN THE CENTRAL BANK OF NIGERIA READY FOR PAYMENT.</p>
+        <p>HOWEVER, BY VIRTUE OF OUR POSITION AS CIVIL SERVANTS AND MEMBERS OF THIS PANEL, WE CANNOT ACQUIRE THIS MONEY IN OUR NAMES. I HAVE THEREFORE, BEEN DELEGATED AS A MATTER OF TRUST BY MY COLLEAGUES OF THE PANEL TO LOOK FOR AN OVERSEAS PARTNER INTO WHOSE ACCOUNT WE WOULD TRANSFER THE SUM OF US$21,320,000.00(TWENTY ONE MILLION, THREE HUNDRED AND TWENTY THOUSAND U.S DOLLARS). HENCE WE ARE WRITING YOU THIS LETTER. WE HAVE AGREED TO SHARE THE MONEY THUS; 1. 20% FOR THE ACCOUNT OWNER 2. 70% FOR US (THE OFFICIALS) 3. 10% TO BE USED IN SETTLING TAXATION AND ALL LOCAL AND FOREIGN EXPENSES. IT IS FROM THE 70% THAT WE WISH TO COMMENCE THE IMPORTATION BUSINESS.</p>
+        <p>PLEASE,NOTE THAT THIS TRANSACTION IS 100% SAFE AND WE HOPE TO COMMENCE THE TRANSFER LATEST SEVEN (7) BANKING DAYS FROM THE DATE OF THE RECEIPT OF THE FOLLOWING INFORMATIOM BY TEL/FAX; 234-1-7740449, YOUR COMPANY'S SIGNED, AND STAMPED LETTERHEAD PAPER THE ABOVE INFORMATION WILL ENABLE US WRITE LETTERS OF CLAIM AND JOB DESCRIPTION RESPECTIVELY. THIS WAY WE WILL USE YOUR COMPANY'S NAME TO APPLY FOR PAYMENT AND RE-AWARD THE CONTRACT IN YOUR COMPANY'S NAME.</p>
+        <p>WE ARE LOOKING FORWARD TO DOING THIS BUSINESS WITH YOU AND SOLICIT YOUR CONFIDENTIALITY IN THIS TRANSATION. PLEASE ACKNOWLEDGE THE RECEIPT OF THIS LETTER USING THE ABOVE TEL/FAX NUMBERS. I WILL SEND YOU DETAILED INFORMATION OF THIS PENDING PROJECT WHEN I HAVE HEARD FROM YOU.</p>
+
+        <p>
+          YOURS FAITHFULLY,<br>
+          DR CLEMENT OKON 
+        </p>
+      </section>
+    </article>
+    <!-- /content -->
+
+
+    <!-- GET JQUERY -->
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.10.2.min.js"><\/script>')</script>
+    <!-- PLUGINS -->
+    <script src="/public/js/custom/plugins.js"></script>
+    <!-- ANALYTICS -->
     <script>
-    var instagrammer = (function () {
-      var /* ... */
-        images = [],
-        container = document.getElementById("instagrammer"),
-        dc = daisychain('instagrammer', {}),
-        toremove = 0;
-
-      dc.chain([ ]).start();
-
-      return {
-        add : function (sources) {
-          sources = _.difference(sources, images);
-          images = _.union(sources, images);
-          toremove = Math.max(0, images.length - MAX_IMAGES);
-          images = _.first(images, MAX_IMAGES);
-          dc.prepend(sources);
-          dc.removetail(toremove);
-          }
-      };
-    })();
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-45577960-1', 'razorbla.de');
+      ga('send', 'pageview');
     </script>
 
-    <script type="text/javascript">
-    var _gaq = _gaq || [];
-    _gaq.push(['_setAccount', 'UA-37878526-1']);
-    _gaq.push(['_trackPageview']);
-
-    (function() {
-      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-    })();
-
-    </script>
   </body>
 </html>
