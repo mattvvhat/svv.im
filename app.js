@@ -7,11 +7,11 @@
  */
 
 // Requires and framework libraries
-var express = require("express"), fs = require("fs");
+var express = require('express'), fs = require('fs');
 var app     = express();
 var server  = require('http').createServer(app).listen(process.env.PORT);
 var step    = require('step');
-var io      = require("socket.io").listen(server, { log : false });
+var io      = require('socket.io').listen(server, { log : false });
 var colors  = require('colors');
 
 // API keys and secrets
@@ -39,21 +39,43 @@ builder.set('callback_url',  secrets.url + '/' + secrets.callback_path);
 
 var stream = builder.make();
 
-// Startup instagram subscription
-function _startup_error () {
-  console.log('ERROR: Startup sequence failed'.bad);
+/**
+ * Init Instagram Streams
+ */
+function initStreams () {
+  step(
+    // Unsubscribe from all subscription
+    function () {
+      console.log('* Unsubscribing from all'.okay);
+      stream.unsubscribe('all', this);
+    },
+    // Subscribe to new subscriptions
+    function () {
+      console.log('* Subscribing to new subscriptions'.okay);
+      stream.subscribe('instavid', this);
+    },
+    // Setup socket.io trigger
+    function () {
+      console.log('* Creating event-trigger for new client connection'.okay);
+      io.sockets.on('connection', function (socket) {
+        stream.getNewTagMedia(sendMessage);
+      });
+    },
+    // Setup stream trigger
+    function () {
+      console.log('* Creating event-trigger for new media received'.okay);
+      stream.on('received', function () {
+        messageClients(stream);
+      });
+    }
+  );
 }
 
-step(
-  function () {
-    stream.subscribe('instavid', this, _startup_error);
-  }
-);
-
-// Body parser
+// ExpressJS Middleware
 app.use(express.bodyParser());
 app.use('/public', express.static(__dirname + '/public'));
 app.use(express.favicon(__dirname + '/public/favicon.ico', { maxAge: 2592000000 }));
+app.use(app.router);
 
 //
 ////
@@ -76,7 +98,7 @@ app.get('/' + secrets.callback_path, function (req, resp) {
 
 // Callback URL for new post
 app.post('/' + secrets.callback_path, function (req, resp) {
-  resp.set('content-type', 'text/plain');
+  resp.set('Content-Type', 'text/plain');
   resp.send(req.param('hub.challenge'));
 });
 
@@ -95,3 +117,10 @@ app.get('/humans.txt', function (req, resp) {
     esp.send(data);
   });
 });
+
+// Hoisted functions
+function sendMessage (message) {
+  io.sockets.send(message);
+}
+
+initStreams();

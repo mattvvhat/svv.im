@@ -10,7 +10,6 @@ var util    = require('util');
 /// /  ///////// //
 //// 
 //// / /// ///
-//////
 ////////////////
 
 /**
@@ -101,6 +100,9 @@ function InstagramStream (opts) {
 InstagramStream.prototype.subscribe = function subscribe (tag, success, failure) {
   'use strict';
 
+  success = typeof success === 'function' ? success : fallback.subscribeSuccess;
+  failure = typeof failure === 'function' ? failure : fallback.subscribeFailure;
+
   var url = 'https://api.instagram.com/v1/subscriptions/';
 
   this.tag = tag;
@@ -114,8 +116,41 @@ InstagramStream.prototype.subscribe = function subscribe (tag, success, failure)
     callback_url  : this.params.callback_url
   };
 
-  var that = this;
+  var thisStream = this;
 
+  var attemptSubscribe = (function () {
+    var attempt = 0;
+    return function () {
+      request.post(
+        url,
+        { form : postData },
+        function (error, response, body) {
+          try {
+            message = JSON.parse(body);
+          }
+          catch (err) {
+            message = {};
+          }
+          if (response.statusCode === 200) {
+            that.tag          = message.data.object_id;
+            that.id           = message.data.id;
+            that.callback_url = message.data.callback_url;
+            success.apply(thisStream);
+          }
+          else {
+            if (attempts < 10) {
+              attemptSubscribe();
+            }
+            else {
+              failure.apply(thisStream);
+            }
+          }
+        }
+      );
+    };
+  })();
+
+  /*
   request.post(
     url,
     { form : postData },
@@ -128,21 +163,18 @@ InstagramStream.prototype.subscribe = function subscribe (tag, success, failure)
       catch (err) {
         message = {};
       }
-
       if (response.statusCode === 200) {
         that.tag          = message.data.object_id;
         that.id           = message.data.id;
         that.callback_url = message.data.callback_url;
-      }
-
-      if (typeof success === 'function' && response.statusCode === 200) {
-        success.apply(this);
+        success.apply(thisStream);
       }
       else {
-        failure.apply(this);
+        failure.apply(thisStream);
       }
     }
   );
+  */
 };
 
 /**
@@ -153,6 +185,13 @@ InstagramStream.prototype.subscribe = function subscribe (tag, success, failure)
  * @param {callback} failure a function callback on failure
  */
 InstagramStream.prototype.unsubscribe = function unsubscribe(object_id, success, failure) {
+  'use strict';
+
+  success = typeof success === 'function' ? success : fallback.unsubscribeSuccess;
+  failure = typeof failure === 'function' ? failure : fallback.unsubscribeFailure;
+
+  var thisStream = this;
+
   // Create url
   var url = 'https://api.instagram.com/v1/subscriptions';
   url += '?client_secret='  + this.params.client_secret;
@@ -172,11 +211,11 @@ InstagramStream.prototype.unsubscribe = function unsubscribe(object_id, success,
         message = {};
       }
 
-      if (typeof success === 'function' && response.statusCode === 200) {
-        success.apply();
+      if (response.statusCode === 200) {
+        success.apply(thisStream);
       }
       else {
-        failure.apply();
+        failure.apply(thisStream);
       }
     }
   );
@@ -205,7 +244,9 @@ InstagramStream.prototype.set = function set (property, val) {
  * @param {callback} failure  a function callback on failure
  */
 InstagramStream.prototype.getNewTagMedia = function (success, failure) {
-  this.getTagMedia({ min_id : this.last.max_id }, success, failure);
+  'use strict';
+
+  this.getTagMedia({}, success, failure);
 };
 
 /**
@@ -216,6 +257,10 @@ InstagramStream.prototype.getNewTagMedia = function (success, failure) {
  * @param {callback} failure  a function callback on failure
  */
 InstagramStream.prototype.getTagMedia = function (opts, success, failure) {
+  'use strict';
+
+  success = typeof success === 'function' ? success : fallback.unsubscribeSuccess;
+  failure = typeof failure === 'function' ? failure : fallback.unsubscribeFailure;
 
   // Is the tag empty?
   if (this.tag !== 'string' && this.tag !== '') {
@@ -233,8 +278,6 @@ InstagramStream.prototype.getTagMedia = function (opts, success, failure) {
   url += '/tags/' + this.tag;
   url += '/media/recent';
   url += '?client_id='  + this.params.client_id;
-
-  console.log('* url = ' + url);
 
   var that = this;
 
@@ -324,10 +367,16 @@ function throwHttpError (statusCode) {
  */
 
 var fallback = {
-  subscriptionFailure : function () {
-    console.log('* Subscription failure'.red);
+  unsubscribeFailure : function () {
+    console.log('* Unsubscribe failure'.red);
+  },
+  unsubscribeSuccess : function () {
+    console.log('* Unsubscribe success'.green);
+  },
+  subscribeFailure : function () {
+    console.log('* Subscribe failure'.red);
   },
   subscriptionSuccess : function () {
-    console.log('* Subscription success'.red);
+    console.log('* Subscribe success'.green);
   }
 };
