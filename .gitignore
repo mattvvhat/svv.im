@@ -3,3 +3,5 @@ secrets.json
 package.json
 *.swp
 live.js
+subscribe
+unsubscribe

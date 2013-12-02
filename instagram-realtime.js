@@ -3,7 +3,7 @@
 var request = require('request');
 var server  = require('https');
 var events  = require('events');
-var util    = require("util");
+var util    = require('util');
 
 // ////////// /////
 /////////
@@ -12,6 +12,51 @@ var util    = require("util");
 //// / /// ///
 //////
 ////////////////
+
+/**
+ * StreamBuilder
+ * A class used in the creation of InstagramStream objects.
+ * @param {object} opts an object containing the properties [ 'client_id', 'client_secret', 'callback_url', 'verify_token' ]
+ */
+function StreamBuilder (opts) {
+  opts = opts || {};
+  this.params = {};
+  this.params.client_id     = opts.client_id      ? opts.client_id      : '';
+  this.params.client_secret = opts.client_secret  ? opts.client_secret  : '';
+  this.params.callback_url  = opts.callback_url   ? opts.callback_url   : '';
+  this.params.verify_token  = opts.verify_token   ? opts.verify_token + '' : 'TOKEN_' + Math.random();
+}
+
+/**
+ * Sets a Property of the Builder Object
+ * This sets a property of the StreamBuilder object. All future streams made
+ * from this StreamBuilder will match this.
+ * @param {string} property a character-sting. One of [ 'client_id', 'client_secret', 'callback_url' ]
+ * @param {string} val      a value for the property
+ * @return {!StreamBuilder} this StreamBuilder object
+ */
+StreamBuilder.prototype.set = function set (property, val) {
+  if (property in this.params) {
+    this.params[property] = val;
+  }
+  else {
+    throw 'Invalid property: `' + propery + '`';
+  }
+  return this;
+};
+
+/**
+ * Create a New Stream Object
+ * Creates a new InstagramStream object from the specified settings.
+ */
+StreamBuilder.prototype.make = function () {
+  var stream = new InstagramStream();
+  stream.set('client_id',     this.params.client_id);
+  stream.set('client_secret', this.params.client_secret);
+  stream.set('callback_url',  this.params.callback_url);
+  stream.set('verify_token',  this.params.verify_token);
+  return stream;
+}
 
 
 util.inherits(InstagramStream, events.EventEmitter);
@@ -28,14 +73,11 @@ function InstagramStream (opts) {
   events.EventEmitter.call(this);
 
   opts = opts || {};
-
   this.params = {};
   this.params.client_id     = opts.client_id      ? opts.client_id      : '';
   this.params.client_secret = opts.client_secret  ? opts.client_secret  : '';
   this.params.callback_url  = opts.callback_url   ? opts.callback_url   : '';
   this.params.verify_token  = opts.verify_token   ? opts.verify_token + '' : 'TOKEN_' + Math.random();
-
-   // https://api.instagram.com/v1/tags//media/recent?client_id=
 
   // Actual returns from subscription
   this.id           = '';
@@ -271,6 +313,7 @@ InstagramStream.prototype.getTagMedia = function (opts, success, failure) {
 
 
 // Fin
+exports.StreamBuilder   = StreamBuilder;
 exports.InstagramStream = InstagramStream;
 
 
