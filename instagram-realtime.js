@@ -50,6 +50,7 @@ StreamBuilder.prototype.set = function set (property, val) {
  * Creates a new InstagramStream object from the specified settings.
  */
 StreamBuilder.prototype.make = function () {
+  'use strict';
   var stream = new InstagramStream();
   stream.set('client_id',     this.params.client_id);
   stream.set('client_secret', this.params.client_secret);
@@ -88,24 +89,6 @@ function InstagramStream (opts) {
   this.last = {};
   this.last.min_id = undefined;
   this.last.max_id = undefined;
-
-  // Meta options
-  this.meta = {};
-  this.meta.tag = opts.tag ? opts.tag : '';
-
-  // 
-  this.lastBody = undefined;
-}
-
-/**
- * Get Verify Token
- * Returns a character-string representing the verify_token for the
- * InstagramStream. This is an identifier used to keep track of which
- * subscription issued the push request.
- * @return {string} a character-string representing this stream's verify_token
- */
-InstagramStream.prototype.verify_token = function () {
-  return this.params.verify_token;
 }
 
 /**
@@ -146,17 +129,17 @@ InstagramStream.prototype.subscribe = function subscribe (tag, success, failure)
         message = {};
       }
 
-      throwHttpError(response.statusCode);
-
-      that.tag          = message.data.object_id;
-      that.id           = message.data.id;
-      that.callback_url = message.data.callback_url;
+      if (response.statusCode === 200) {
+        that.tag          = message.data.object_id;
+        that.id           = message.data.id;
+        that.callback_url = message.data.callback_url;
+      }
 
       if (typeof success === 'function' && response.statusCode === 200) {
-        success.apply();
+        success.apply(this);
       }
       else {
-        failure.apply();
+        failure.apply(this);
       }
     }
   );
@@ -215,17 +198,6 @@ InstagramStream.prototype.set = function set (property, val) {
 };
 
 /**
- * Get Last Body
- * Send a DELETE Https-request to instagram.
- * @param {string}   tag      a character-string specifying
- * @param {callback} success  a function callback on success
- * @param {callback} failure  a function callback on failure
- */
-InstagramStream.prototype.getLastBody = function (success, failure) {
-  return this.lastBody;
-};
-
-/**
  * Get Only Newest Tag Media 
  * Send a DELETE Https-request to instagram.
  * @param {string}   tag      a character-string specifying
@@ -244,6 +216,14 @@ InstagramStream.prototype.getNewTagMedia = function (success, failure) {
  * @param {callback} failure  a function callback on failure
  */
 InstagramStream.prototype.getTagMedia = function (opts, success, failure) {
+
+  // Is the tag empty?
+  if (this.tag !== 'string' && this.tag !== '') {
+    console.log('* [getTagMedia Error] Tag is empty'.red);
+    failure.apply(this);
+    return;
+  }
+
   // Parameters for getting the media
   opts = opts || {};
   opts.min_tag_id = opts.min_id;
@@ -254,15 +234,8 @@ InstagramStream.prototype.getTagMedia = function (opts, success, failure) {
   url += '/media/recent';
   url += '?client_id='  + this.params.client_id;
 
-  // if (opts.min_id !== undefined) {
-  //   url += '&min_id='     + opts.min_id;
-  // }
+  console.log('* url = ' + url);
 
-  // if (opts.max_tag_id !== undefined) {
-  //   url += '&max_id='     + opts.max_id;
-  // }
-
-  
   var that = this;
 
   // Send a GET request
@@ -275,7 +248,11 @@ InstagramStream.prototype.getTagMedia = function (opts, success, failure) {
         message = JSON.parse(body);
       }
       catch (err) {
+        console.log(body);
+        console.log('[instagram-realtime] Invalid JSON return'.red);
+        console.error(err);
         message = {};
+        return;
       }
 
       if (message.pagination.next_max_tag_id) {
@@ -319,33 +296,6 @@ exports.InstagramStream = InstagramStream;
 
 
 
-
-
-
-
-
-// Extra (???)
-function RequestCallbackWrapper (success, failure) {
-  return function (error, response, body) {
-    if (!error && response.statusCode === 200) {
-      if (typeof success === 'function') {
-        success.call(undefined, body, response);
-      }
-      else {
-        console.log('SUCCESS: 200 response from request');
-      }
-    }
-    else {
-      if (typeof failure  === 'function') {
-        failure.call(undefined, body, response);
-      }
-      else {
-        console.log('FAILURE: non-200 response from request');
-      }
-    }
-  };
-}
-
 /**
  * Notifies Application of HTTP-response Codes that Should Throw Errors
  * Throws errors that are caused by HTTP-response codes. That is, all non-200
@@ -367,3 +317,17 @@ function throwHttpError (statusCode) {
       throw new Error('UnrecognizableError. Instagram returned ' + statusCode + '. The `instagram-realtime` package does not recognize this; please refer to Instagram\'s developer manual for more information.');
   }
 }
+
+/**
+ *
+ *
+ */
+
+var fallback = {
+  subscriptionFailure : function () {
+    console.log('* Subscription failure'.red);
+  },
+  subscriptionSuccess : function () {
+    console.log('* Subscription success'.red);
+  }
+};
