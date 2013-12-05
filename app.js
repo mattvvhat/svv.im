@@ -3,7 +3,8 @@
  * Server-side subscribe and begin listening to a post in the app
  * @author  Matt Owen
  * @since   11-17-2013
- * @note    ...
+ * @note    Everything you need to know.
+ *
  */
 
 // Requires and framework libraries

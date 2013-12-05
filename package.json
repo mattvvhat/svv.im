@@ -1,7 +1,7 @@
 {
   "name": "SWIM",
   "author": "Matt Owen",
-  "version": "2013.12.03-54",
+  "version": "2013.12.03-55",
   "description": "p l e a s e f e e l d e e p . t h a n k s .",
   "main": "./app.js",
   "dependencies": {
@@ -11,7 +11,8 @@
     "ejs": "0.8.x",
     "request": "x.x.x",
     "step": "0.0.x",
-    "colors": "0.6.x"
+    "colors": "0.6.x",
+    "underscore": "1.x.x"
   },
   "engines": {
     "node": "0.8.x",

@@ -116,39 +116,35 @@ InstagramStream.prototype.subscribe = function subscribe (tag, success, failure)
     callback_url  : this.params.callback_url
   };
 
+  // @@@
   var thisStream = this;
+  var message = {};
 
-  var attemptSubscribe = (function () {
-    var attempt = 0;
-    return function () {
-      request.post(
-        url,
-        { form : postData },
-        function (error, response, body) {
-          try {
-            message = JSON.parse(body);
-          }
-          catch (err) {
-            message = {};
-          }
-          if (response.statusCode === 200) {
-            that.tag          = message.data.object_id;
-            that.id           = message.data.id;
-            that.callback_url = message.data.callback_url;
-            success.apply(thisStream);
-          }
-          else {
-            if (attempts < 10) {
-              attemptSubscribe();
-            }
-            else {
-              failure.apply(thisStream);
-            }
-          }
+  request.post(
+    url,
+    { form : postData },
+    function (error, response, body) {
+      try {
+        message = JSON.parse(body);
+      }
+      catch (err) {
+      }
+      if (response.statusCode === 200) {
+        thisStream.tag          = message.data.object_id;
+        thisStream.id           = message.data.id;
+        thisStream.callback_url = message.data.callback_url;
+        success.apply(thisStream);
+      }
+      else {
+        if (attempts < 10) {
+          attemptSubscribe();
         }
-      );
-    };
-  })();
+        else {
+          failure.apply(thisStream);
+        }
+      }
+    }
+  );
 
   /*
   request.post(
@@ -211,7 +207,7 @@ InstagramStream.prototype.unsubscribe = function unsubscribe(object_id, success,
         message = {};
       }
 
-      if (response.statusCode === 200) {
+      if (response && response.statusCode === 200) {
         success.apply(thisStream);
       }
       else {
@@ -321,7 +317,7 @@ InstagramStream.prototype.getTagMedia = function (opts, success, failure) {
         obj = {};
       }
 
-      if (response.statusCode === 200) {
+      if (response && response.statusCode === 200) {
         success.call(undefined, body, response);
       }
       else {
