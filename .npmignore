@@ -3,3 +3,7 @@ node_modules
 package.json
 *.swp
 live.js
+subscribe
+subscribe.js
+unsubscribe
+unsubscribe.js

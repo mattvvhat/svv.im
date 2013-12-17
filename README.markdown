@@ -1,26 +1,34 @@
-# SWIM
+# s vv i m
 
-`http://svv.im/`
+[svv.im](http://svv.im/)
 
-# SWIM is
+Specifically: WebGl, WebSockets, SVG Fonts
+Abstractly: Visualism of [planwork](http://planwork.us)
 
-1. `MONTHLY`: dance night
-2. `QUARTERLY`: magazine
-3. `DAILY`: blog
 
-# Abstractly it is:
+# Installation
 
-The visual and metaphorical realization of htttps://planwork.us/, a design firm in Boston.
+1. `git clone `
+2. `npm install`
+3. Create a `secrets.json` file, `JSON` file with five parameters:
+  * `client_id`: Client ID, received from [instagram.com/developer](http://instagram.com/developer)
+  * `client_secret`: Client Secret, received from [instagram.com/developer](http://instagram.com/developer)
+  * `callback_path`: Callback Path, specified in your Instagram App @ [instagram.com/developer](http://instagram.com/developer)
+  * `redirect_path`: Redirect Path, specified in your Instagram App @ [instagram.com/developer](http://instagram.com/developer)
+  * `url`: URL for the app
 
-# To somepeople it is:
+## Example `secrets.json` file:
 
-`S`OMEONE `W`HO `I`SN'T `M`E
-
-# Related
-
-1. https://planwork.us/
-2. https://fys.me/
+```js
+{
+  "client_id"     : "7418da67773b4320b600Dd73AED40f7c",
+  "client_secret" : "1DE7D93608904071A6388f72293d99DE",
+  "callback_path" : "callback",
+  "redirect_path" : "redirect",
+  "url"           : "http://svv.im"
+}
+```
 
 # By
 
-`Matt` razorbla.de Hammerstadt ` Owen`
+`Matt razorbla.de Hammerstadt Owen`
