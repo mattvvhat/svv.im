@@ -239,6 +239,12 @@
           var s = new ObjApp();
           s.loop();
 
+          $(window).scroll(function (ev) {
+            var y = $(window).scrollTop() / ($(document).height() - $(window).height());
+            console.log('y = ', y);
+            s.set('y', y);
+          });
+
           $(window).keypress(function (ev) {
             switch (ev.which) {
             case 112:

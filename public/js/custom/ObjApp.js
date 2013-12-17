@@ -1,4 +1,4 @@
-//    Cube app
+//    Obj app
 //    +------+       +------+       +------+       +------+       +------+
 //    |`.    |`.     |\     |\      |      |      /|     /|     .'|    .'|
 //    |  `+--+---+   | +----+-+     +------+     +-+----+ |   +---+--+'  |
@@ -24,6 +24,7 @@ function ObjApp () {
   var _scene;
   var _container;
   var _splash = undefined;
+  var _params = { y : 0 };
 
   // Init Obj App
   ObjApp.prototype.init = function () {
@@ -89,10 +90,10 @@ function ObjApp () {
   // Update Obj App
   ObjApp.prototype.update = function () {
     if (_splash) {
-      t = Date.now() / 1000 / 10;
+      t = Date.now() / 1000 / 40;
       var pos = {
-        x : 30 * Math.cos(3 * t),
-        y : 10 - 2 * (Math.cos(t/10) + 1),
+        x : 30 * Math.cos(7 * t),
+        y : 15 * (1 - _params.y) + 1,
         z : 20 * Math.sin(4 * t)
       };
       _camera.position.set(pos.x, pos.y, pos.z);
@@ -112,12 +113,9 @@ function ObjApp () {
   };
 
   // 
-  ObjApp.prototype.snapshot = function () {
-    var src = _renderer.domElement.toDataURL('image/jpg');
-    var img = new Image();
-    img.src = src;
-    img.onload = function () {
-      window.open(src, '_blank');
-    };
+  ObjApp.prototype.set = function (what, val) {
+    if (what in _params) {
+      _params[what] = val;
+    }
   };
 }();
