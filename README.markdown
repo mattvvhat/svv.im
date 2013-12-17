@@ -17,6 +17,7 @@ Abstractly: Visualism of [planwork](http://planwork.us)
   * `callback_path`: Callback Path, specified in your Instagram App @ [instagram.com/developer](http://instagram.com/developer)
   * `redirect_path`: Redirect Path, specified in your Instagram App @ [instagram.com/developer](http://instagram.com/developer)
   * `url`: URL for the app
+4. `jitsu deploy` 
 
 ## Example `secrets.json` file:
 
@@ -30,6 +31,10 @@ Abstractly: Visualism of [planwork](http://planwork.us)
 }
 ```
 
-# By
+# ___
 
-`Matt razorbla.de Hammerstadt Owen`
+[razorbla.de](http://razorbla.de)
+
+[@mattvvhat](http://instagram.com/mattvvhat)
+
+[`xxx`](http://facebook.com/svvim)
