@@ -1,127 +1,113 @@
 /**
- * Instagram Stream Using an Instagram API 
- * Server-side subscribe and begin listening to a post in the app
- * @author  Matt Owen
- * @since   11-17-2013
- * @note    Everything you need to know.
- *
+ * mind is a razorbla.de
  */
 
+
 // Requires and framework libraries
-var express = require('express'), fs = require('fs');
+var express = require('express');
+var step    = require('step');
+var fs      = require('fs');
+var nodemailer = require('nodemailer');
+var colors = require('colors');
+
+// App setup
 var app     = express();
 var server  = require('http').createServer(app).listen(process.env.PORT);
-var step    = require('step');
 var io      = require('socket.io').listen(server, { log : false });
-var colors  = require('colors');
 
 // API keys and secrets
 var secrets = require('./secrets.json');
 
-// Local instagram module
-var i = require('./instagram-realtime.js');
+console.log('Mind is a razorblade'.green);
+console.log('--------------------'.green);
+console.log('Node template for socket-based stuff'.green);
 
-// Set colors theme
-colors.setTheme({
-  great : 'rainbow',
-  good  : 'green',
-  okay  : 'blue',
-  bad   : 'red'
+var smtpTransport = nodemailer.createTransport('SMTP', {
+  host: secrets.host,
+  port: secrets.port,
+  secureConnection: true,
+  use_authentication: true,
+  auth: {
+    user: secrets.email,
+    pass: secrets.pass
+  }
 });
 
-// Startup message
-console.log('svv.im'.okay);
-
-// Create a StreamBuilder
-var builder = new i.StreamBuilder();
-builder.set('client_id',     secrets.client_id);
-builder.set('client_secret', secrets.client_secret);
-builder.set('callback_url',  secrets.url + '/' + secrets.callback_path);
-
-var stream = builder.make();
-
-/**
- * Init Instagram Streams
- */
-function initStreams () {
-  step(
-    // Unsubscribe from all subscription
-    function () {
-      console.log('* Unsubscribing from all'.okay);
-      stream.unsubscribe('all', this);
-    },
-    // Subscribe to new subscriptions
-    function () {
-      console.log('* Subscribing to new subscriptions'.okay);
-      stream.subscribe('instavid', this);
-    },
-    // Setup socket.io trigger
-    function () {
-      console.log('* Creating event-trigger for new client connection'.okay);
-      io.sockets.on('connection', function (socket) {
-        stream.getNewTagMedia(sendMessage);
-      });
-    },
-    // Setup stream trigger
-    function () {
-      console.log('* Creating event-trigger for new media received'.okay);
-      stream.on('received', function () {
-        messageClients(stream);
-      });
-    }
-  );
-}
-
-// ExpressJS Middleware
+// Expressjs middleware
+app.use(express.favicon(__dirname + '/public/image/favicon.ico', { maxAge: 2592000000 }))
+app.use('/public/css',    express.static(__dirname + '/public/css'));
+app.use('/public/js',     express.static(__dirname + '/public/js'));
+app.use('/public/obj',    express.static(__dirname + '/public/obj'));
+app.use('/public/image',  express.static(__dirname + '/public/image'));
 app.use(express.bodyParser());
-app.use('/public', express.static(__dirname + '/public'));
-app.use(express.favicon(__dirname + '/public/favicon.ico', { maxAge: 2592000000 }));
 app.use(app.router);
+app.use(function(req, res, next) {
+  res.set('Content-type', 'plain/text');
+  res.send('', 404);
+});
 
-//
-////
-///////
-/////
-////
-////////
-//
-
-// Root document
 app.get('/', function (req, resp) {
-  resp.render('index.ejs', { url : secrets.url });
+  resp.render('index.ejs');
 });
 
-// Callback URL for hub.challenge after subscription
-app.get('/' + secrets.callback_path, function (req, resp) {
-  resp.set('Content-Type', 'text/plain');
-  resp.send(req.param('hub.challenge'));
+app.get('/graph', function (req, resp) {
+  resp.render('graph.ejs');
 });
 
-// Callback URL for new post
-app.post('/' + secrets.callback_path, function (req, resp) {
-  resp.set('Content-Type', 'text/plain');
-  resp.send(req.param('hub.challenge'));
+app.get('/three', function (req, resp) {
+  resp.render('three.ejs');
 });
 
-// robots.txt
-app.get('/robots.txt', function (req, resp) {
-  fs.readFile('robots.txt', 'utf-8', function (err, data) {
+app.post('/email', function (req, resp) {
+  var name    = req.param('name');
+  var email   = req.param('email');
+  var company = req.param('company');
+  var website = req.param('website');
+  var message = req.param('message');
+
+  var _email = {};
+
+  _email.text = '';
+  _email.text += 'Name ...... ' + name + '\n';
+  _email.text += 'E-mail .... ' + email + '\n';
+  _email.text += 'Company ... ' + company + '\n';
+  _email.text += 'Website ... ' + website + '\n\n';
+  _email.text += message;
+
+  _email.from     = 'matt@planwork.us';
+  _email.to       = 'not.mattowen@gmail.com';
+  _email.subject  = 'Job Inquiry : ' + (new Date());
+
+  smtpTransport.sendMail(_email, _callback);
+
+  function _callback (error, response) {
+    if (error) {
+      resp.set('Content-Type', 'application/json');
+      resp.send(JSON.stringify({ resp : 1, message : 'Somethign went really bad.' }));
+    }
+    else {
+      resp.set('Content-Type', 'application/json');
+      resp.send(JSON.stringify({ resp : 0, message : 'Everything went well.' }));
+    }
+  }
+});
+
+app.get('/humans.txt', function (req, resp) {
+  fs.readFile("humans.txt", "utf-8", function (err, data) {
     resp.set('Content-Type', 'text/plain');
     resp.send(data);
   });
 });
 
-// humans.txt
-app.get('/humans.txt', function (req, resp) {
-  fs.readFile('humans.txt', 'utf-8', function (err, data) {
+app.get('/robots.txt', function (req, resp) {
+  fs.readFile("robots.txt", "utf-8", function (err, data) {
     resp.set('Content-Type', 'text/plain');
-    esp.send(data);
+    resp.send(data);
   });
 });
 
-// Hoisted functions
-function sendMessage (message) {
-  io.sockets.send(message);
-}
+app.use(function(err, req, res, next){
+  console.log("!");
 
-initStreams();
+  next();
+});

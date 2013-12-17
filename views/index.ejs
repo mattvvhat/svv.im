@@ -1,6 +1,26 @@
 <!DOCTYPE html>
 <!--
-
+  thanksindeep
+  razorbla.de/
+  III??????????????IIIIIIII???????????????????????????????????????????????????????IIII?????????????????II?????
+  IIIIIII??IIIIIIIIIIIIIIIIIIIIIIII???????????????????????????????II?????????????IIIIIII??I??III??IIIIIIIII?II
+  IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII????III????????????IIIII???IIII?IIIIIIIIIIIIIIIIIIIIII?IIIIIIIIIIIIIIIIII
+  IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII
+  IIIIIIIIIIIIIIIII77777777IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII7I7777IIIIIIIIIIIIIIII77IIIII
+  7777IIIIIII777II77777777777II7777IIIIIIIIIIIIIIIIIIIIIIIIIIIIIII77IIIIIIIII7III777777IIIIIII77IIII7I77777I7I
+  7777777III7777777777777777777777777IIIIIIIIIIIIIIIIIIIIII77II777777I777I77777777777777777II77777777777777777
+  77777777I777777777777777777777777777III777777II7777II77777777I7777777777777777777777777777777777777777777777
+  777777777777777777777777777777777777777777777777777777777777777777777777777777777$$$$77777777777777777$77777
+  7777777777777$777$$$$$$$$$7777$$77777777777777777777777777777777777777777777777$$$$$$7777777777777777$$$$777
+  777$$777777$$$777$$$$$$$$$$$$$$$$$77777777777777777777777777777$$$$7777777$$77$$$$$$$$$77777$$$777$$$$$$$$$$
+  $$$$$$$777$$$$$7$$$$$$$$$$$$$$$$$$$77777777777777777777$$$$777$$$$$$$$$$$$$$$$$$$$$$$$$$$$77$$$$$$$$$$$$$$$$
+  $$$$$$$$7$$$$$$$$$$$$$$$$$$$$$$$$$$$77$$$$$$$$7$$$7$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$7$$7777$$$$$$$$$$$
+  $$$$$$$$7$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$ZZZ$$$$$$77777777777$$$$$77
+  $$$$$$$$$$$$$$$$$$$$ZZZ$$$$$$$Z$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$ZZ$$$$$77I77777777777$$7777
+  $$$$$$$$$$$$ZZZ$$$ZZZZZZZZ$$$$ZZZZ$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$ZZZ$$$$$$Z$Z$$777$$$$$$777II77777777II777$$7
+  $ZZZ$$$$$$$ZZZZ$$ZZZZZZZZZZ$$ZZZZZ$$$$$$$$$$$$$$$$$$$$$$$ZZ$$$ZZZZZZ$ZZ$$$$$$$$7777$$$7$77777$7777777IIIII??
+  ZZZZZZ$$$$ZZZZZZ$ZZZZZZZZZZ$ZZZZZZ$$$$$$$$$Z$$$$$Z$$$$$ZZZZ$Z$ZZZZZ$$$$$$$$$$77$$7$$$$7777777$77777777$$$$$7
+  ZZZZZZZZ$$ZZZZZZ$ZZZZZZZZZZZZZZZZZZZZ$$ZZZZZZZ$$$Z$$$$$ZZZ$$$$$$$$$$$$7?7$$$$$$$$7$$$$7I777III777777$$$$$$$$
 -->
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
 <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
@@ -24,9 +44,10 @@
     <link rel="stylesheet" href="/public/css/index.css">
 
     <!-- @ -->
-    <script src="/public/js/vendor/modernizr-2.6.2.min.js"></script>
-    <script src="/public/js/vendor/live.js" ></script>
-    <script src="/socket.io/socket.io.js"   ></script>
+    <script src="/socket.io/socket.io.js"                   ></script>
+    <script src="/public/js/vendor/require.js"              ></script>
+    <script src="/public/js/vendor/live.js"                 ></script>
+    <script src="/public/js/vendor/modernizr-2.6.2.min.js"  ></script>
 
     <!-- !!! Harvester Scripts -->
     <!-- <script src="/public/js/instagram-harvester/app.js"></script> -->
@@ -175,6 +196,12 @@
             Cambridge, MA 02139
           </div>
         </div>
+        <div>
+          <h3>###</h3>
+          <p>House</p>
+          <div><a href="https://www.facebook.com/RomanPerryMusic">soundcloud</a></div>
+        </div>
+
         <!-- @@@
         <div>
           <h3>###</h3>
@@ -213,6 +240,24 @@
       })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
       ga('create', 'UA-45577960-1', 'razorbla.de');
       ga('send', 'pageview');
+    </script>
+
+    <script>
+      requirejs.config({
+        paths : {
+          three     : '/public/js/vendor/three.min',
+          OBJLoader : '/public/js/vendor/OBJLoader',
+          App       : '/public/js/custom/App',
+          ObjApp    : '/public/js/custom/ObjApp'
+        }
+      });
+
+      require([ 'three', 'App' ], function () {
+        require([ 'OBJLoader', 'ObjApp' ], function () {
+          var s = new ObjApp();
+          s.loop();
+        });
+      });
     </script>
 
   </body>

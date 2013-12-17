@@ -1,34 +1,73 @@
-.pw-x {
+/**
+ * Generic Table Styling
+ * Style <TABLE class="pw-table"> and <DIV class="pw-table">
+ * *** * ** ******** ** **     ** ********* ** *  ***  ****** *
+ * ** ** ******** ** ** ***** * * * * * * ****** * * * ******* ***
+ * ** ***** ** ** ******** *   * * ****** * ** ** * * * ******  **
+ */
+
+table.pw-table {
+  border-collapse: collapse;
 }
 
-.pw-y {
-}
-
-.pw-z {
-}
-
-.pw-table {
-}
-
-.pw-table td {
+table.pw-table td {
   text-align: left;
   vertical-align: top;
 }
 
-.pw-table {
-  border-collapse: collapse;
-}
-
-.pw-table td {
+table.pw-table td {
   padding-top: 0;
   padding-left: 0;
   padding-bottom: 10px;
 }
 
-.pw-table td:first-child {
+table.pw-table td:first-child {
   padding-right: 25px;
 }
 
+/* * * **** * ***      *       ** ****   **  **      *** ** * * ** */
+
+div.pw-table {
+}
+
+div.pw-table > div {
+  clear: both;
+  margin-bottom: 3px !important;
+}
+div.pw-table > div:after {
+  visibility: hidden;
+  display: block;
+  font-size: 0;
+  content: " ";
+  height: 0;
+  clear: both;
+}
+
+div.pw-table > div > div {
+  display: block;
+  float: left;
+  min-width: 100px;
+}
+
+@media all and (max-width: 600px) {
+  div.pw-table > div {
+    clear: both;
+    margin-bottom: 9px !important;
+  }
+  div.pw-table > div > div {
+    display: block;
+    float: none;
+    min-width: 100px;
+  }
+}
+
+/**
+ * Lists
+ * Styling information for ordered lists
+ * * * ** * **** * *   * *** * * *** * * *** ***   * *   *  *** *
+ * ** ******* ** **   * *** ** * **** * * *** ** ***    *** ** ***
+ * ** * * ** **  *******   * * * * * *** *   ****** * ** * **
+ */
 .pw-inline-list {
   padding: 0;
   margin: .25em 0;
@@ -40,28 +79,56 @@
 }
 
 ol.pw-list, ul.pw-list {
-  font-size: 80%;
-  padding: 20px;
-  margin:  0;
+  font-size: 90%;
+  margin-left:    0;
+  margin-right:   0;
+  padding-left:   2em;
+  padding-right:  2em;
 }
 
-ol.pw-list li, ul.pw-list li {
+ul.pw-list li {
   list-style-type: square;
-  margin-top: 0;
-  margin-bottom: .5em;
 }
 
-.pw-col-container {
-  width: 800px;
+ul.pw-list li ul {
+  margin-top: .25em;
+  padding-left:     1em;
+  font-size: 90%;
 }
+
+ul.pw-list li ul li {
+  list-style-type:  disc;
+  color: rgb(120, 120, 120);
+}
+
 .pw-col {
   float: left;
-  width: 40%;
+  width: 39%;
+  margin-right: 0;
+  padding-right: 0;
+}
+
+@media all and (max-width: 600px) {
+  .pw-col {
+    width: 90%;
+    padding:  0;
+    margin:   0;
+    display: block;
+    float: none;
+    margin-top: 0;
+    margin-bottom: 0;
+  }
+  .pw-col:first-child {
+    margin-top: .5em;
+  }
+  .pw-col:last-child {
+    margin-bottom: .5em;
+  }
 }
 
 .pw-col-3 {
   float: left;
-  width: 25%;
+  width: 20%;
   padding: 0;
   margin: 0;
 }
