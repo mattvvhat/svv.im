@@ -8,6 +8,7 @@ function App () {
 
   // Private stock
   var _running = true;
+  var _error_callback = function () {};
   var self = this;
 
   // Public
@@ -48,8 +49,22 @@ function App () {
     if (_running) {
       requestAnimationFrame(_loop);
     }
-    self.update(this);
-    self.draw(this);
+
+    try {
+      self.update(this);
+    }
+    catch (err) {
+      _error_callback.call(this, err, 'update');
+      _stop();
+    }
+
+    try {
+      self.draw(this);
+    }
+    catch (err) {
+      _error_callback.call(this, err, 'draw');
+      _stop();
+    }
   };
 
   /**
@@ -58,5 +73,17 @@ function App () {
    */
   function _stop () {
     _running = false;
+  }
+
+  /**
+   * Event to fire on error
+   * This method triggers a callback
+   * @param {function} callback a callback function to call when an error
+   * occurs in the update-draw loop.
+   */
+  function _error (callback) {
+    if (typeof callback === 'function') {
+      _error_callback = callback;
+    }
   }
 }

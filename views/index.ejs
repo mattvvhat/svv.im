@@ -106,25 +106,6 @@
       });
     </script>
     <style>
-      #div-bg {
-        position: fixed; 
-        top: -50%; 
-        left: -50%; 
-        width: 200%; 
-        height: 200%;
-        background-color: white;
-      }
-      #div-bg #video-element {
-        position: absolute; 
-        top: 0; 
-        left: 0; 
-        right: 0; 
-        bottom: 0; 
-        margin: auto; 
-        min-width: 50%;
-        min-height: 50%;
-      }
-
       nav {
         width: 100%;
       }
@@ -160,7 +141,7 @@
 
     <!-- @@@ -->
     <div id="div-bg">
-      <video autoplay="autoplay" loop id="video-element" type="video/mp4"></video>
+      <img src="/public/image/fluid-1.png">
     </div>
 
     <nav id="header">
@@ -256,8 +237,17 @@
         require([ 'OBJLoader', 'ObjApp' ], function () {
           var s = new ObjApp();
           s.loop();
+
+          $(window).keypress(function (ev) {
+            switch (ev.which) {
+            case 112:
+              s.snapshot();
+              break;
+            }
+          });
         });
       });
+
     </script>
 
   </body>
