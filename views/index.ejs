@@ -36,6 +36,7 @@
 
     <!-- * -->
     <link rel="shortcut icon" href="http://razorbla.de/favicon.ico">
+    <link href='http://fonts.googleapis.com/css?family=Source+Code+Pro:200,300' rel='stylesheet' type='text/css'>
     <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300' rel='stylesheet' type='text/css'>
     <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
     <link rel="stylesheet" href="/public/css/normalize.css">
@@ -106,35 +107,17 @@
       });
     </script>
     <style>
-      nav {
-        width: 100%;
+      .headliner {
+        font-weight: bold;
+        font-size: 170%;
       }
-      nav .subsec {
-        width: 600px;
-        margin: 0 auto;
+      .headliner > .fade {
+        font-size: 80%;
       }
-
-      #all-center {
-        position: absolute;
-        width: 100%;
-        height: 100%;
-        vertical-align: middle;
-        color: black;
-        display: table-cell;
-        vertical-align: middle;
+      .fade {
+        color: transparent;
+        text-shadow: -3px 0 2px rgba(33, 33, 33, .5), 3px 0 5px rgba(66, 66, 33, .5), 0px 2px 7px rgba(66, 44, 33, .3);
       }
-      #all-center div {
-        text-align: center;
-        font-size: 800%;
-        text-shadow: 0 0 3px rgba(255, 255, 255, .5);
-      }
-      #content {
-        text-shadow: 1px 1px 0px rgba(50, 50, 50, .25);
-      }
-      hr {
-        border-color: rgba(33, 33, 33, .6);
-      }
-
     </style>
   </head>
   <body>
@@ -144,30 +127,15 @@
       <img src="/public/image/fluid-1.png">
     </div>
 
-    <nav id="header">
-      <section class="subsec" id="sec-info">
-        <section id="subsec-name">
-          svvim
-          <small>
-            <a href="http://instagram.com/svvim"><i class="fa fa-instagram"></i></a>
-            <a href="http://facebook.com/svvim"><i class="fa fa-facebook-square"></i></a>
-          </small>
-        </section>
-        <section id="subsec-main-links">
-          p l e a s e f e e l d e e p t h a n k s
-          <ul class="pw-inline-list">
-            <!-- <li><a href="#sec-side-projects">Side Projects</a></li> -->
-          </ul>
-        </section>
-        <section id="subsec-find-me-links">
-          <ul class="pw-inline-list">
-          </ul>
-        </section>
-      </section>
-    </nav>
-
     <!-- content -->
     <article id="content">
+      <section id="subsec-name">
+        svvim
+        <small>
+          <a href="http://instagram.com/svvim"><i class="fa fa-instagram"></i></a>
+          <a href="http://facebook.com/svvim"><i class="fa fa-facebook-square"></i></a>
+        </small>
+      </section>
       <section>
         <div>
           <div>January 7th, 2014</div>
@@ -176,11 +144,33 @@
             315 Massachusetts Ave,<br>
             Cambridge, MA 02139
           </div>
+          <br>
+          <div>
+            <a href="https://www.facebook.com/events/265092633644550/"><i class="fa fa-thumbs-up"></i> RSVP</a>
+            <a href="http://fontawesome.io/icon/tint/"><i class="fa fa-tint"></i> Feel</a>
+            <a href="http://www.mixcloud.com/svvim/"><i class="fa fa-meh-o"></i> Thanks</a>
+          </div>
         </div>
+        <hr>
+        <div class='headliner'>
+          Robokid
+          <a href="https://www.soundcloud.com/r0b0kid"><i class='fa fa-facebook-square'></i></a>
+          <a href="https://twitter.com/robokidmusic"><i class='fa fa-twitter'></i></a>
+          <a href="http://robokidmusic.tumblr.com/"><i class='fa fa-tumblr'></i></a>
+          <a href="https://www.facebook.com/r0b0kid"><i class='fa fa-cloud'></i></a>
+          <div class='fade'>Future, Dream Club, Bass</div>
+        </big></div>
+        <br>
         <div>
-          <h3>###</h3>
-          <p>House</p>
-          <div><a href="https://www.facebook.com/RomanPerryMusic">soundcloud</a></div>
+          Dudley Disco
+          <a href="https://www.soundcloud.com/dudley-disco"><i class='fa fa-cloud'></i></a>
+          <div class='fade'>Deep House, Bass</div>
+        </div>
+        <br>
+        <div>
+          Brad Mood
+          <a href="https://www.soundcloud.com/yeahfuckingrighttt"><i class='fa fa-cloud'></i></a>
+          <div class='fade'>Sonic Youth, Meta Ambient, iPad Funk</div>
         </div>
 
         <!-- @@@

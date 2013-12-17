@@ -35,6 +35,8 @@ function ObjApp () {
 
     _scene = new THREE.Scene();
     _renderer = new THREE.WebGLRenderer();
+    if (!_renderer)
+      _renderer = new THREE.CanvasRenderer();
     _camera = new THREE.PerspectiveCamera(
       this.app.view_angle,
       this.app.aspect,
