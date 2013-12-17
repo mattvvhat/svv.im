@@ -38,6 +38,7 @@ app.use(express.favicon(__dirname + '/public/image/favicon.ico', { maxAge: 25920
 app.use('/public/css',    express.static(__dirname + '/public/css'));
 app.use('/public/js',     express.static(__dirname + '/public/js'));
 app.use('/public/obj',    express.static(__dirname + '/public/obj'));
+app.use('/public/fonts',    express.static(__dirname + '/public/fonts'));
 app.use('/public/image',  express.static(__dirname + '/public/image'));
 app.use(express.bodyParser());
 app.use(app.router);
