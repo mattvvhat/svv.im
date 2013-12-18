@@ -335,7 +335,7 @@ table.related-info td:last-child {
  */
 @media all and (max-width: 600px) {
   body {
-    font-size: 10pt;
+    font-size: 12pt;
   }
   .pw-list {
     text-align: justify;
