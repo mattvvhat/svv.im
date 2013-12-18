@@ -1,7 +1,7 @@
 {
   "name": "SWIM",
   "author": "Matt Owen",
-  "version": "2014.01.07-10",
+  "version": "2014.01.07-11",
   "description": "p l e a s e f e e l d e e p . t h a n k s .",
   "main": "./app.js",
   "dependencies": {

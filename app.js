@@ -48,7 +48,7 @@ app.use(function(req, res, next) {
 });
 
 app.get('/', function (req, resp) {
-  resp.render('index.ejs');
+  resp.render('fluid.ejs');
 });
 
 app.get('/graph', function (req, resp) {
