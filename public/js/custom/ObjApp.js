@@ -20,7 +20,11 @@ function ObjApp () {
   var _camera;
   var _map
   var _cube;
-  var _pointLight;
+  var _pointLight, _ambientLight;
+  var _pointColor = [ 0xFF, 0x66, 0x44 ];
+  var _ambientColor = [ 0xBB, 0xBB, 0xFF ];
+
+  var _light = { ambient : undefined, point : undefined };
   var _scene;
   var _container;
   var _splash = undefined;
@@ -34,10 +38,12 @@ function ObjApp () {
     this.app.near = 0.1;
     this.app.far = 10000;
 
+    _container = document.getElementById('div-bg');
     _scene = new THREE.Scene();
     _renderer = new THREE.WebGLRenderer();
-    if (!_renderer)
+    if (!_renderer) {
       _renderer = new THREE.CanvasRenderer();
+    }
     _camera = new THREE.PerspectiveCamera(
       this.app.view_angle,
       this.app.aspect,
@@ -57,16 +63,11 @@ function ObjApp () {
     });
 
     var loader = new THREE.OBJLoader(manager);
-    loader.load('/public/obj/fluid_spill.obj', function ( object ) {
-      object.traverse(function (child) {
-        if (child instanceof THREE.Mesh) {
-          // child.material.map = texture;
-        }
-      });
-
+    loader.load('/public/obj/fluid_spill.obj', function (object) {
       _splash = object;
       _splash.position.y = 0;
       _scene.add(_splash);
+      _container.appendChild(_renderer.domElement);
     });
 
     _camera.position.y = 0;
@@ -74,21 +75,24 @@ function ObjApp () {
 
     _renderer.setSize(this.app.width, this.app.height);
 
-    var material = new THREE.MeshLambertMaterial({ color: 0xDDDDFF });
-    _cube = new THREE.Mesh( new THREE.CubeGeometry(50, 50, 50, 10, 10, 10), material );
-
     _pointLight = new THREE.PointLight(0xFF6644);
+    _ambientLight = new THREE.AmbientLight(0xBBBBFF);
     _scene.add(_camera);
     _scene.add(_pointLight);
-    _scene.add(new THREE.AmbientLight( 0xBBBBFF ));
-    _renderer.setClearColor(new THREE.Color(0xBBBBFF));
+    _scene.add(_ambientLight);
 
-    _container = document.getElementById('div-bg');
-    _container.appendChild(_renderer.domElement);
+    _renderer.setClearColor(new THREE.Color(0xBBBBFF));
   };
 
   // Update Obj App
   ObjApp.prototype.update = function () {
+    _pointLight.color.r = _pointColor[0]/0xFF;
+    _pointLight.color.g = _pointColor[1]/0xFF;
+    _pointLight.color.b = _pointColor[2]/0xFF;
+    _ambientLight.color.r = _ambientColor[0]/0xFF;
+    _ambientLight.color.g = _ambientColor[1]/0xFF;
+    _ambientLight.color.b = _ambientColor[2]/0xFF;
+
     if (_splash) {
       t = Date.now() / 1000 / 40;
       var pos = {
