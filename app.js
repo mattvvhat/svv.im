@@ -18,8 +18,7 @@ var io      = require('socket.io').listen(server, { log : false });
 // API keys and secrets
 var secrets = require('./secrets.json');
 
-console.log('Mind is a razorblade'.green);
-console.log('--------------------'.green);
+console.log('razorbla.de'.green.underline);
 console.log('Node template for socket-based stuff'.green);
 
 var smtpTransport = nodemailer.createTransport('SMTP', {
