@@ -1,18 +1,19 @@
 {
   "name": "SWIM",
   "author": "Matt Owen",
-  "version": "2014.01.07-13",
+  "version": "2014.01.07-25",
   "description": "p l e a s e f e e l d e e p . t h a n k s .",
   "main": "./app.js",
   "dependencies": {
     "express": "3.x.x",
     "socket.io": "0.9.x",
-    "nodemailer": "0.5.x",
     "ejs": "0.8.x",
+    "jade": "x.x.x",
     "request": "x.x.x",
     "step": "0.0.x",
     "colors": "0.6.x",
-    "underscore": "1.x.x"
+    "passport": "x.x.x",
+    "passport-soundcloud": "x.x.x"
   },
   "engines": {
     "node": "0.8.x",

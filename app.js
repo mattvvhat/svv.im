@@ -1,113 +1,87 @@
-/**
- * mind is a razorbla.de
- */
-
-
-// Requires and framework libraries
 var express = require('express');
-var step    = require('step');
-var fs      = require('fs');
-var nodemailer = require('nodemailer');
 var colors = require('colors');
 
-// App setup
 var app     = express();
-var server  = require('http').createServer(app).listen(process.env.PORT);
+var server  = require('http').createServer(app).listen(process.env.PORT || 5000);
 var io      = require('socket.io').listen(server, { log : false });
+
+var passport = require('passport');
+var SoundCloudStrategy = require('passport-soundcloud').Strategy;
 
 // API keys and secrets
 var secrets = require('./secrets.json');
 
-console.log('razorbla.de'.green.underline);
-console.log('Node template for socket-based stuff'.green);
+// PASSPORT
 
-var smtpTransport = nodemailer.createTransport('SMTP', {
-  host: secrets.host,
-  port: secrets.port,
-  secureConnection: true,
-  use_authentication: true,
-  auth: {
-    user: secrets.email,
-    pass: secrets.pass
-  }
+passport.serializeUser(function(user, done) {
+    done(null, user);
 });
 
-// Expressjs middleware
-app.use(express.favicon(__dirname + '/public/image/favicon.ico', { maxAge: 2592000000 }))
-app.use('/public/css',    express.static(__dirname + '/public/css'));
-app.use('/public/js',     express.static(__dirname + '/public/js'));
-app.use('/public/obj',    express.static(__dirname + '/public/obj'));
-app.use('/public/fonts',    express.static(__dirname + '/public/fonts'));
-app.use('/public/image',  express.static(__dirname + '/public/image'));
-app.use(express.bodyParser());
-app.use(app.router);
-app.use(function(req, res, next) {
-  res.set('Content-type', 'plain/text');
-  res.send('', 404);
+passport.deserializeUser(function(obj, done) {
+    done(null, obj);
+});
+
+passport.use(new SoundCloudStrategy(
+  {
+    clientID      : secrets.soundcloud.client_id,
+    clientSecret  : secrets.soundcloud.client_secret,
+    callbackURL   : "http://svv.im/auth",
+  },
+  function(accessToken, refreshToken, profile, done) {
+    console.log(profile);
+    // asynchronous verification, for effect...
+    process.nextTick(function () {
+      // To keep the example simple, the user's SoundCloud profile is returned
+      // to represent the logged-in user.  In a typical application, you would
+      // want to associate the SoundCloud account with a user record in your
+      // database, and return that user instead.
+      return done(null, profile);
+    });
+  }
+));
+
+// EXPRESS MIDDLEWARE
+app.configure(function() {
+  app.use(express.logger());
+  app.use(express.cookieParser());
+  app.use(express.bodyParser());
+  app.use(express.methodOverride());
+  app.use(express.session({ secret: 'keyboard cat' }));
+  // Initialize Passport!  Also use passport.session() middleware, to support
+  // persistent login sessions (recommended).
+  app.use(passport.initialize());
+  app.use(passport.session());
+  app.use(app.router);
 });
 
 app.get('/', function (req, resp) {
-  resp.render('fluid.ejs');
+   resp.render('index.jade', { user: req.user });
 });
 
-app.get('/graph', function (req, resp) {
-  resp.render('graph.ejs');
+app.get('/login', function(req, resp) {
+  resp.render('login.jade', { user: req.user });
 });
 
-app.get('/three', function (req, resp) {
-  resp.render('three.ejs');
+app.get('/account', ensureAuthenticated, function(req, resp) {
+  resp.render('account.jade', { user: req.user });
 });
 
-app.post('/email', function (req, resp) {
-  var name    = req.param('name');
-  var email   = req.param('email');
-  var company = req.param('company');
-  var website = req.param('website');
-  var message = req.param('message');
+app.get('/logout', function(req, resp) {
+  req.logout();
+  resp.redirect('/');
+});
 
-  var _email = {};
-
-  _email.text = '';
-  _email.text += 'Name ...... ' + name + '\n';
-  _email.text += 'E-mail .... ' + email + '\n';
-  _email.text += 'Company ... ' + company + '\n';
-  _email.text += 'Website ... ' + website + '\n\n';
-  _email.text += message;
-
-  _email.from     = 'matt@planwork.us';
-  _email.to       = 'not.mattowen@gmail.com';
-  _email.subject  = 'Job Inquiry : ' + (new Date());
-
-  smtpTransport.sendMail(_email, _callback);
-
-  function _callback (error, response) {
-    if (error) {
-      resp.set('Content-Type', 'application/json');
-      resp.send(JSON.stringify({ resp : 1, message : 'Somethign went really bad.' }));
-    }
-    else {
-      resp.set('Content-Type', 'application/json');
-      resp.send(JSON.stringify({ resp : 0, message : 'Everything went well.' }));
-    }
+app.get(
+  '/auth',
+  passport.authenticate('soundcloud', { failureRedirect: '/login' }),
+  function(req, resp) {
+    resp.redirect('/');
   }
-});
+);
 
-app.get('/humans.txt', function (req, resp) {
-  fs.readFile("humans.txt", "utf-8", function (err, data) {
-    resp.set('Content-Type', 'text/plain');
-    resp.send(data);
-  });
-});
-
-app.get('/robots.txt', function (req, resp) {
-  fs.readFile("robots.txt", "utf-8", function (err, data) {
-    resp.set('Content-Type', 'text/plain');
-    resp.send(data);
-  });
-});
-
-app.use(function(err, req, res, next){
-  console.log("!");
-
-  next();
-});
+function ensureAuthenticated(req, res, next) {
+  if (req.isAuthenticated()) {
+    return next();
+  }
+  res.redirect('/login')
+}
