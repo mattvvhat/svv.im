@@ -56,11 +56,13 @@ function ObjApp () {
 
     var texture = new THREE.Texture(THREE.UVMapping, THREE.RepeatWrapping, THREE.RepeatWrapping);
 
+    /*
     var loader = new THREE.ImageLoader( manager );
     loader.load( '/public/image/marble.jpg', function ( image ) {
       texture.image = image;
       texture.needsUpdate = true;
     });
+    */
 
     var loader = new THREE.OBJLoader(manager);
     loader.load('/public/obj/fluid_spill.obj', function (object) {

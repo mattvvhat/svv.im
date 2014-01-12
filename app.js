@@ -14,7 +14,7 @@ var secrets = require('./secrets.json');
 // PASSPORT
 
 passport.serializeUser(function(user, done) {
-    done(null, user);
+  done(null, user);
 });
 
 passport.deserializeUser(function(obj, done) {
@@ -28,7 +28,6 @@ passport.use(new SoundCloudStrategy(
     callbackURL   : "http://svv.im/auth",
   },
   function(accessToken, refreshToken, profile, done) {
-    console.log(profile);
     // asynchronous verification, for effect...
     process.nextTick(function () {
       // To keep the example simple, the user's SoundCloud profile is returned
@@ -42,21 +41,40 @@ passport.use(new SoundCloudStrategy(
 
 // EXPRESS MIDDLEWARE
 app.configure(function() {
-  app.use(express.logger());
+  // app.use(express.logger());
   app.use(express.cookieParser());
   app.use(express.bodyParser());
   app.use(express.methodOverride());
-  app.use(express.session({ secret: 'keyboard cat' }));
+  /*
+  app.use(function (req, resp, next) {
+    resp.header('Access-Control-Allow-Origin',   'http://soundcloud.com http://*.soundcloud.com');
+    resp.header('Access-Control-Allow-Methods',  'GET,PUT,POST,DELETE');
+    resp.header('Access-Control-Allow-Headers',  'Content-Type');
+    next();
+  });
+  */
+  app.use('/public/css',  express.static(__dirname + '/public/css'));
+  app.use('/public/img',  express.static(__dirname + '/public/img'));
+  app.use('/public/js',   express.static(__dirname + '/public/js'));
+  app.use('/public/obj',  express.static(__dirname + '/public/obj'));
   // Initialize Passport!  Also use passport.session() middleware, to support
   // persistent login sessions (recommended).
+  app.use(express.session({ secret: 'keyboard cat' }));
   app.use(passport.initialize());
   app.use(passport.session());
   app.use(app.router);
 });
 
 app.get('/', function (req, resp) {
-   resp.render('index.jade', { user: req.user });
+  console.log(req.user);
+  resp.render('index.jade', { user: req.user });
 });
+
+app.get('/callback', function(req, resp) {
+  resp.render('callback.jade');
+});
+
+/*
 
 app.get('/login', function(req, resp) {
   resp.render('login.jade', { user: req.user });
@@ -66,6 +84,7 @@ app.get('/account', ensureAuthenticated, function(req, resp) {
   resp.render('account.jade', { user: req.user });
 });
 
+
 app.get('/logout', function(req, resp) {
   req.logout();
   resp.redirect('/');
@@ -73,11 +92,14 @@ app.get('/logout', function(req, resp) {
 
 app.get(
   '/auth',
-  passport.authenticate('soundcloud', { failureRedirect: '/login' }),
-  function(req, resp) {
+  passport.authenticate('soundcloud', { failureRedirect: '/login' }), function(req, resp) {
     resp.redirect('/');
+    console.log('!!! auth');
   }
 );
+
+*/
+
 
 function ensureAuthenticated(req, res, next) {
   if (req.isAuthenticated()) {

@@ -17,12 +17,10 @@ function App () {
   this.stop = _stop;
   this.loop = function () {
     _running = true;
-    _loop();
+    requestAnimationFrame(_loop);
   };
 
-  this.init   = this.init ? this.init : function () {};
-  this.draw   = this.draw ? this.draw : function () {};
-  this.update = this.update ? this.update : function () {};
+  this.init   = this.init   ? this.init   : function () {};
 
   this.init();
 
@@ -50,21 +48,8 @@ function App () {
       requestAnimationFrame(_loop);
     }
 
-    try {
-      self.update(this);
-    }
-    catch (err) {
-      _error_callback.call(this, err, 'update');
-      _stop();
-    }
-
-    try {
-      self.draw(this);
-    }
-    catch (err) {
-      _error_callback.call(this, err, 'draw');
-      _stop();
-    }
+    self.update();
+    self.draw();
   };
 
   /**

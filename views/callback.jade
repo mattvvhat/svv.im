@@ -1,0 +1,21 @@
+doctype html
+html(lang="en")
+  head
+    title svv.im
+    link(href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css", rel="stylesheet")
+    link(href="/public/css/index.css",      rel="stylesheet")
+    style.
+      body {
+        margin: 2em;
+        text-align: center;
+      }
+      #panel {
+        position: fixed;
+        right:    .50em;
+        bottom:   .75em;
+      }
+  body
+    div Authorization Successful!
+    div Closing soon...
+    script.
+      window.opener.setTimeout(window.opener.SC.connectCallback, 1000);
