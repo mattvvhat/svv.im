@@ -9,6 +9,13 @@ html(lang="en")
     link(href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css", rel="stylesheet")
     link(href="/public/css/index.css",      rel="stylesheet")
     link(href="/public/css/planworked.css", rel="stylesheet")
+    link(href="http://razorbla.de/favicon.ico", rel="shortcut icon")
+    link(href='http://fonts.googleapis.com/css?family=Open+Sans:400,300', rel='stylesheet', type='text/css')
+    link(href="/public/css/icomoon.css", rel="stylesheet")
+    link(rel="stylesheet", href="/public/css/normalize.css")
+    link(rel="stylesheet", href="/public/css/main.css")
+    link(rel="stylesheet", href="/public/css/planworked.css")
+    link(rel="stylesheet", href="/public/css/index.css")
     script(src="/socket.io/socket.io.js")
     script(src="/public/js/vendor/require.js")
 
@@ -87,6 +94,20 @@ html(lang="en")
         top:      -1000px;
         right:    -1000px;
       }
+      .headliner {
+        font-weight: bold;
+        font-size: 150%;
+      }
+      .headliner > .fade {
+        font-size: 80%;
+      }
+      .fade {
+        color: rgba(33, 33, 33, .3);
+        font-size: 80%;
+      }
+      .left-space {
+        margin-left: 0.25em;
+      }
   body
     div.japanese-text.
       2013年に、全く当処分の重要性を否定するが、これはモンスター
@@ -94,6 +115,50 @@ html(lang="en")
       クの取り違えに、技術的なスキルの習得から行ってきました。
 
       svvimは巧みに流用し。
+
+    article#content
+
+      section#subsec-name
+        | svvim
+        small.
+          <a href="http://instagram.com/svvim" class="left-space"><i class="fa fa-instagram"></i></a>
+          <a href="http://facebook.com/svvim" class="left-space"><i class="fa fa-facebook-square"></i></a>
+
+      section
+        div
+          div February 2nd, 2014
+          div @ Middlesex Lounge
+          div.
+            315 Massachusetts Ave,<br>
+            Cambridge, MA 02139
+          br
+          div.
+            <a href="https://www.facebook.com/events/265092633644550/" class="left-space"><i class="fa fa-thumbs-up"></i> RSVP</a>
+            <a href="http://fontawesome.io/icon/tint/" class="left-space"><i class="fa fa-tint"></i> Feel</a>
+            <a href="http://www.mixcloud.com/svvim/" class="left-space"><i class="fa fa-meh-o"></i> Thanks</a>
+
+        br
+
+        div.headliner
+          span Robokid
+          <a href="https://www.facebook.com/r0b0kid" class="left-space"><i class='icon-soundcloud2'></i></a>
+          <a href="https://www.soundcloud.com/r0b0kid" class="left-space"><i class='icon-facebook2'></i></a>
+          <a href="https://twitter.com/robokidmusic" class="left-space"><i class='icon-twitter'></i></a>
+          <div class='fade'>Future, Dream Club, Bass</div>
+
+        div
+          span Dudley Disco
+          <a href="https://www.facebook.com/subtropixboston" class="left-space"><i class='icon-soundcloud2'></i></a>
+          <a href="https://www.soundcloud.com/dudley-disco" class="left-space"><i class='icon-facebook2'></i></a>
+          <a href="https://twitter.com/SubTropixBoston" class="left-space"><i class='icon-twitter'></i></a>
+          <div class='fade'>Deep House, Bass</div>
+
+        div
+          span Brad Mood
+          <a href="https://www.facebook.com/svvim" class="left-space"><i class='icon-soundcloud2'></i></a>
+          <a href="https://twitter.com/svvim" class="left-space"><i class='icon-twitter'></i></a>
+          <div class='fade'>Sonic Youth, Meta Ambient, iPad Serrato</div>
+        </div>
     // ...
     div.bg#artvvork
       img(src="/public/img/courtneylove.jpg")
