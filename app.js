@@ -53,10 +53,11 @@ app.configure(function() {
     next();
   });
   */
-  app.use('/public/css',  express.static(__dirname + '/public/css'));
-  app.use('/public/img',  express.static(__dirname + '/public/img'));
-  app.use('/public/js',   express.static(__dirname + '/public/js'));
-  app.use('/public/obj',  express.static(__dirname + '/public/obj'));
+  app.use('/public/css',    express.static(__dirname + '/public/css'));
+  app.use('/public/img',    express.static(__dirname + '/public/img'));
+  app.use('/public/js',     express.static(__dirname + '/public/js'));
+  app.use('/public/obj',    express.static(__dirname + '/public/obj'));
+  app.use('/public/fonts',  express.static(__dirname + '/public/fonts'));
   // Initialize Passport!  Also use passport.session() middleware, to support
   // persistent login sessions (recommended).
   app.use(express.session({ secret: 'keyboard cat' }));

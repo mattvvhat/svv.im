@@ -125,43 +125,44 @@ html(lang="en")
           <a href="http://facebook.com/svvim" class="left-space"><i class="fa fa-facebook-square"></i></a>
 
       section
-        div
+        div#info
           div February 2nd, 2014
           div @ Middlesex Lounge
           div.
             315 Massachusetts Ave,<br>
             Cambridge, MA 02139
           br
-          div.
-            <a href="https://www.facebook.com/events/265092633644550/" class="left-space"><i class="fa fa-thumbs-up"></i> RSVP</a>
-            <a href="http://fontawesome.io/icon/tint/" class="left-space"><i class="fa fa-tint"></i> Feel</a>
-            <a href="http://www.mixcloud.com/svvim/" class="left-space"><i class="fa fa-meh-o"></i> Thanks</a>
+          div
+            // <a href="https://www.facebook.com/events/265092633644550/" class="left-space"><i class="fa fa-thumbs-up"></i> RSVP</a>
+            // <a href="http://fontawesome.io/icon/tint/" class="left-space"><i class="fa fa-tint"></i> Feel</a>
+            // a(href="http://www.mixcloud.com/svvim/").left-space
+            <i class="fa fa-meh-o"></i> Thanks</a>
 
         br
 
-        div.headliner
-          span Robokid
-          <a href="https://www.facebook.com/r0b0kid" class="left-space"><i class='icon-soundcloud2'></i></a>
-          <a href="https://www.soundcloud.com/r0b0kid" class="left-space"><i class='icon-facebook2'></i></a>
-          <a href="https://twitter.com/robokidmusic" class="left-space"><i class='icon-twitter'></i></a>
-          <div class='fade'>Future, Dream Club, Bass</div>
+        //
+          div.headliner
+            span Robokid
+            <a href="https://www.facebook.com/r0b0kid" class="left-space"><i class='icon-soundcloud2'></i></a>
+            <a href="https://www.soundcloud.com/r0b0kid" class="left-space"><i class='icon-facebook2'></i></a>
+            <a href="https://twitter.com/robokidmusic" class="left-space"><i class='icon-twitter'></i></a>
+            <div class='fade'>Future, Dream Club, Bass</div>
 
-        div
-          span Dudley Disco
-          <a href="https://www.facebook.com/subtropixboston" class="left-space"><i class='icon-soundcloud2'></i></a>
-          <a href="https://www.soundcloud.com/dudley-disco" class="left-space"><i class='icon-facebook2'></i></a>
-          <a href="https://twitter.com/SubTropixBoston" class="left-space"><i class='icon-twitter'></i></a>
-          <div class='fade'>Deep House, Bass</div>
+          div
+            span Dudley Disco
+            <a href="https://www.facebook.com/subtropixboston" class="left-space"><i class='icon-soundcloud2'></i></a>
+            <a href="https://www.soundcloud.com/dudley-disco" class="left-space"><i class='icon-facebook2'></i></a>
+            <a href="https://twitter.com/SubTropixBoston" class="left-space"><i class='icon-twitter'></i></a>
+            <div class='fade'>Deep House, Bass</div>
 
-        div
-          span Brad Mood
-          <a href="https://www.facebook.com/svvim" class="left-space"><i class='icon-soundcloud2'></i></a>
-          <a href="https://twitter.com/svvim" class="left-space"><i class='icon-twitter'></i></a>
-          <div class='fade'>Sonic Youth, Meta Ambient, iPad Serrato</div>
-        </div>
+          div
+            span Brad Mood
+            <a href="https://www.facebook.com/svvim" class="left-space"><i class='icon-soundcloud2'></i></a>
+            <a href="https://twitter.com/svvim" class="left-space"><i class='icon-twitter'></i></a>
+            <div class='fade'>Sonic Youth, Meta Ambient, iPad Serrato</div>
     // ...
     div.bg#artvvork
-      img(src="/public/img/courtneylove.jpg")
+      video#vid(looped)
     // ...
     nav#panel
       ul.pw-inline-list
@@ -207,7 +208,7 @@ html(lang="en")
       // 3D
       require([ 'three', 'App' ], function () {
         require([ 'OBJLoader', 'CanApp' ], function () {
-
+          return;
           var s = new CanApp('artvvork');
           s.loop();
           s.stop();
@@ -228,3 +229,54 @@ html(lang="en")
           });
         });
       });
+
+    script(type="text/javascript").
+      console = console || { log : function () {} };
+
+      var socket = io.connect('http://razorbla.de:80');
+      socket.on('new', function (body) {
+        change_channel(body);
+      });
+
+      function change_channel (body) {
+        var vid = document.getElementById('vid');
+        try {
+          data = JSON.parse(body).data;
+        }
+        catch (err) {
+          console.log(err);
+          console.log(body);
+          return;
+        }
+
+        for (var i = 0; i < data.length; i++) {
+          var obj = data[i];
+          if (obj.type !== 'video') {
+            continue;
+          }
+          else if (obj.videos.low_resolution.url === vid.src) {
+            continue;
+          }
+          console.log('loading: ' + obj.videos.low_resolution.url);
+          vid.pause();
+
+          var newVid = document.createElement('video');
+          vid.src = obj.videos.low_resolution.url;
+          vid.volume = 0;
+          vid.play();
+          newVid.play();
+          newVid.volume = 0.;
+          newVid.addEventListener('canplaythrough', function () {
+            vid.src = newVid.src;
+            vid.volume = 0;
+            vid.play();
+            var n = new Notification('new video');
+            setTimeout(function () { n.close(); }, 2999);
+          });
+
+
+
+
+          break;
+        }
+      }
